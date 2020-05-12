@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+// 텍스트부분 초기화하는 함수 선언
+let helpInIt = function() {
+	$('#idHelper').text('');
+	$('#pwHelper').text('');
+	$('#pw2Helper').text('');
+	$('#nameHelper').text('');
+	$('#addrHelper').text('');
+	$('#phoneHelper').text('');
+};
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		// 입력값의 길이가 4보다 작을경우 실행한다.
+		if($('#memberId').val().length < 4) {
+			helpInIt();
+			let msg = "ID는 4자이상";
+			$('#idHelper').text(msg);
+			$('#memberId').focus();
+		// 입력값의 길이가 4보다 작으면 실행한다.
+		} else if($('#memberPw').val().length < 4) {
+			helpInIt();
+			let msg = "PW는 4자이상";
+			$('#pwHelper').text(msg);
+			$('#memberPw').focus();
+		// memberPw와 memberPw2의 값이 같지않을경우 실행한다.
+		} else if($('#memberPw').val() != $('#memberPw2').val()) {
+			helpInIt();
+			let msg = "PW를 확인하세요";
+			$('#pwHelper').text(msg);
+			$('#memberPw').focus();
+		// memberName의 값이 없을경우 실행
+		} else if($('#memberName').val().length === 0) {
+			helpInIt();
+			let msg = "NAME을 입력하세요";
+			$('#nameHelper').text(msg);
+			$('#memberName').focus();
+		// memberAddr의 값이 없을경우 실행
+		} else if($('#memberAddr').val().length === 0) {
+			helpInIt();
+			let msg = "ADDR을 입력하세요";
+			$('#addrHelper').text(msg);
+			$('#memberAddr').focus();
+		// memberPhone의 값이 없을경우 실행
+		} else if($('#memberPhone').val().length === 0) {
+			helpInIt();
+			let msg = "PHONE을 입력하세요";
+			$('#phoneHelper').text(msg);
+			$('#memberPhone').focus();
+		// memberEmail의 값이 없을경우 실행
+		} else if($('#memberEmail').val().length === 0) {
+			helpInIt();
+			let msg = "EMAIL을 입력하세요";
+			$('#emailHelper').text(msg);
+			$('#memberEmail').focus();
+		} else {
+			$('#myform').submit();
+		}
+	});
+});
+</script>
+</head>
+<body>
+	<div class="container">
+		<h1>Sign Up</h1>
+		<form id="myform" method="post" action="/addMember">
+			<div>
+				ID : <input type="text" name="memberId" id="memberId">
+				<span id="idHelper"></span>
+			</div>
+			<div>
+				PW : <input type="text" name="memberPw" id="memberPw">
+				<span id="pwHelper"></span>
+			</div>
+			<div>
+				PWC : <input type="text" id="memberPw2">
+				<span id="pw2Helper"></span>
+			</div>
+			<div>
+				MEMBER_NAME : <input type="text" name="memberName" id="memberName">
+				<span id="nameHelper"></span>
+			</div>
+			<div>
+				ADDR : <input type="text" name="memberAddr" id="memberAddr">
+				<span id="addrHelper"></span>
+			</div>
+			<div>
+				PHONE : <input type="text" name="memberPhone" id="memberPhone">
+				<span id="phoneHelper"></span>
+			</div>
+			<div>
+				EMAIL : <input type="text" name="memberEmail" id="memberEmail">
+				<span id="emailHelper"></span>
+			</div>
+			<div>
+				<button type="button" id="btn">Sign Up</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

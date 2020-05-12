@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: cashbook
+Bundle-SymbolicName: cashbook
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com.gdu.cashbook,
+ com.gdu.cashbook.controller,
+ com.gdu.cashbook.vo,
+ com.gdu.cashbook1
