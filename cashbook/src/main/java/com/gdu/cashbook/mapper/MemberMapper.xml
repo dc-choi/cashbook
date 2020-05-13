@@ -3,8 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.MemberMapper">
+	<select id="selectMemberId"
+			parameterType="String"
+			resultType="String">
+		SELECT
+			member_id
+		FROM member
+		WHERE member_id = #{memberIdCheck}
+	</select>
+	
+	<select id="selectLoginMember" 
+			parameterType="com.gdu.cashbook.vo.LoginMember" 
+			resultType="com.gdu.cashbook.vo.LoginMember">
+		SELECT
+			member_id memberId, 
+			member_pw memberPw
+		FROM member
+		WHERE member_id = #{memberId}
+		AND member_pw = #{memberPw}
+	</select>
+	
 	<insert id="insertMember" parameterType="com.gdu.cashbook.vo.Member">
-		INSERT INTO member (member_id, member_pw, member_name, member_addr, member_phone, member_email)
-		VALUES (#{memberId}, #{memberPw}, #{memberName}, #{memberAddr}, #{memberPhone}, #{memberEmail})
+		INSERT INTO member (
+		member_id, 
+		member_pw, 
+		member_name, 
+		member_addr, 
+		member_phone, 
+		member_email
+		) VALUES (
+		#{memberId}, 
+		#{memberPw}, 
+		#{memberName}, 
+		#{memberAddr}, 
+		#{memberPhone}, 
+		#{memberEmail}
+		)
 	</insert>
 </mapper>

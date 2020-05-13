@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.body {
+		text-align: center;
+	}
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -73,15 +78,25 @@ $(document).ready(function(){
 			$('#myform').submit();
 		}
 	});
+	$("#idBtn").click(function(){
+		$("#idForm").submit();
+	});
 });
 </script>
 </head>
-<body>
+<body class="body">
 	<div class="container">
 		<h1>Sign Up</h1>
+		<form id="idForm" method="post" action="/checkMemberId">
+			<div>
+				아이디 중복 확인 : <input type="text" name="memberIdCheck" id="memberIdCheck">
+				<button id="idBtn" type="button">중복체크</button>
+				<span th:text="${msg}"></span>
+			</div>
+		</form>
 		<form id="myform" method="post" action="/addMember">
 			<div>
-				ID : <input type="text" name="memberId" id="memberId">
+				ID : <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 				<span id="idHelper"></span>
 			</div>
 			<div>
@@ -112,6 +127,7 @@ $(document).ready(function(){
 				<button type="button" id="btn">Sign Up</button>
 			</div>
 		</form>
+		<a href="/index">back</a>
 	</div>
 </body>
 </html>
