@@ -59,6 +59,7 @@ public class MemberController {
 			return "login";
 		} else { // 성공
 			session.setAttribute("LM", LM);
+			session.setAttribute("PW", lm.getMemberPw());
 			return "redirect:/home";
 		}
 	}
@@ -91,11 +92,78 @@ public class MemberController {
 	}
 	@GetMapping("/memberInfo")
 	public String getMemberInfo(HttpSession session, Model model) {
+		// 로그인 아닐때
 		if(session.getAttribute("LM") == null) {
 			return "redirect:/login";
 		}
 		Member member = ms.getMemberOne((LoginMember)(session.getAttribute("LM")));
 		model.addAttribute("member", member);
 		return "memberInfo";
+	}
+	@GetMapping("/removeMember")
+	public String removeMember(HttpSession session) {
+		// 로그인 아닐때
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/login";
+		}
+		return "removeMember";
+	}
+	@PostMapping("/removeMember")
+	public String removeMember(HttpSession session, String memberId, String memberPw) {
+		// 로그인 아닐때
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/login";
+		}
+		// 정상적으로 삭제되었는지 확인하기 위해서 int값을 받아온다.
+		int check = ms.RemoveMember(memberId, memberPw);
+		// check값이 0일경우 삭제에 실패
+		if(check == 0) {
+			System.out.println("삭제를 실패하였습니다.");
+			return "redirect:/home";
+		} else {
+			System.out.println(check);
+		}
+		return "redirect:/logout";
+	}
+	@GetMapping("/modifyMember")
+	public String modifyMember(HttpSession session, Model model) {
+		// 로그인 아닐때
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/login";
+		}
+		// 수정폼을 불러오기 위해서 LoginMember로 세션을 형변환후 데이터를 불러온다
+		Member member = ms.getMemberOne((LoginMember)(session.getAttribute("LM")));
+		model.addAttribute("member", member);
+		return "modifyMember";
+	}
+	@PostMapping("/modifyMember")
+	public String modifyMember(HttpSession session, Member m) {
+		// 로그인 아닐때
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/login";
+		}
+		// 받아온 PW의 값이 맞는지 확인해본다
+		String pw = ((String)(session.getAttribute("PW")));
+		String pw2 = ((String)(m.getMemberPw()));
+		// 디버그코드
+		System.out.println(pw + " <-- MemberController.modifyMember.pw");
+		System.out.println(pw2 + " <-- MemberController.modifyMember.pw2");
+		System.out.println(pw.equals(pw2));
+		// pw와 pw2가 같다면 실행하고 아니면 오류를 출력한다.
+		if(pw.equals(pw2)) {
+			// 정상적으로 수정되었는지 확인하기 위해서 int값을 받아온다.
+			int check = ms.modifyMember(m);
+			// check값이 0일경우 수정 실패
+			if(check == 0) {
+				System.out.println("두번째에서 수정 실패하였습니다.");
+				return "redirect:/home";
+			} else {
+				System.out.println(check);
+			}
+			return "redirect:/home";
+		} else {
+			System.out.println("첫번째에서 수정 실패하였습니다.");
+			return "redirect:/home";
+		}
 	}
 }

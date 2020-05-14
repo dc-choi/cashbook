@@ -19,37 +19,28 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#btn").click(function(){
+		$("#form").submit();
+	})
+});
+</script>
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Member Info</h1>
-		<div th:include="/include/menu::sidemenu"></div>
-		<table class="table" border="1">
-			<tr>
-				<td>member_id</td>
-				<td th:text="${member.memberId}"></td>
-			</tr>
-			<tr>
-				<td>member_name</td>
-				<td th:text="${member.memberName}"></td>
-			</tr>
-			<tr>
-				<td>member_addr</td>
-				<td th:text="${member.memberAddr}"></td>
-			</tr>
-			<tr>
-				<td>member_phone</td>
-				<td th:text="${member.memberPhone}"></td>
-			</tr>
-			<tr>
-				<td>member_email</td>
-				<td th:text="${member.memberEmail}"></td>
-			</tr>
-			<tr>
-				<td><a class="btn btn-danger" href="/removeMember">Delete</a></td>
-				<td><a class="btn btn-primary" href="/modifyMember">Update</a></td>
-			</tr>
-		</table>
+	<h1>Sign Out</h1>
+		<form id="form" method="post" action="/removeMember">
+			<div>
+				<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
+				<span th:text="${session.LM.memberId}"></span>님 정말 탈퇴하시겠습니까?<br>
+				탈퇴하기 위해서는 비밀번호를 입력해주세요
+				<br><br>
+				PW : <input type="password" name="memberPw" id="memberPw">
+			</div>
+			<button type="button" id="btn">Sign Out</button>
+		</form>
+		<a href="/home">Back To Home</a>
 	</div>
 </body>
 </html>

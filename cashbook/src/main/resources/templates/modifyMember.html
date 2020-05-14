@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<style>
+	.body {
+		text-align: center;
+	}
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+let clean = function() {
+	$('#PWCK').text('');
+};
+
+$(document).ready(function(){
+	$("#btn").click(function(){
+		if($("#memberPw").val() === "") {
+			clean();
+			$('#PWCK').text('입력하셔야죠;;');
+			$('#PWCK').focus();
+		} else if($("#memberPw2").val() === "") {
+			clean();
+			$('#PWCK').text('입력하셔야죠;;');
+			$('#PWCK').focus();
+		} else if($("#memberPw").val() != $("#memberPw2").val()) {
+			clean();
+			$('#PWCK').text('두개가 서로 다르잖아요;;');
+			$('#PWCK').focus();
+		} else if($("#memberPw2").val().length < 4) {
+			clean();
+			$('#PWCK').text('4글자이상 입력하셔야죠;;');
+			$('#PWCK').focus();
+		} else if($("#memberPw2").val().length < 4) {
+			clean();
+			$('#PWCK').text('4글자이상 입력하셔야죠;;');
+			$('#PWCK').focus();
+		} else {
+			$("#form").submit();
+		}
+	})
+});
+</script>
+</head>
+<body class="body">
+	<div class="container">
+		<form id="form" method="post" action="/modifyMember">
+			<div>
+				<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
+				<span th:text="${session.LM.memberId}"></span>님 수정하기 위해서는 PW가 필요합니다<br>
+				수정하기 위해서는 비밀번호를 입력해주세요
+				<br><br>
+				PW : <input type="password" name="memberPw" id="memberPw">
+				PWCK : <input type="password" id="memberPw2">
+				<br>
+				<span id="PWCK"></span>
+			</div>
+			<div>
+				member_name : <input type="text" name="memberName" th:value="${member.memberName}">
+			</div>
+			<div>
+				member_addr : <input type="text" name="memberAddr" th:value="${member.memberAddr}">
+			</div>
+			<div>
+				member_phone : <input type="text" name="memberPhone" th:value="${member.memberPhone}">
+			</div>
+			<div>
+				member_email : <input type="text" name="memberEmail" th:value="${member.memberEmail}">
+			</div>
+			<button type="button" id="btn">Update</button>
+		</form>
+		<a href="/home">Back To Home</a>
+	</div>
+</body>
+</html>
