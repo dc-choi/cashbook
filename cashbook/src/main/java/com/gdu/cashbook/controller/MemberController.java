@@ -59,7 +59,7 @@ public class MemberController {
 			return "login";
 		} else { // 성공
 			session.setAttribute("LM", LM);
-			return "redirect:/";
+			return "redirect:/home";
 		}
 	}
 	@GetMapping("/logout")
@@ -87,7 +87,15 @@ public class MemberController {
 			System.out.println("아이디를 사용할 수 없습니다");
 			model.addAttribute("msg", "사용중인 아이디입니다");
 		}
-		
 		return "addMember";
+	}
+	@GetMapping("/memberInfo")
+	public String getMemberInfo(HttpSession session, Model model) {
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/login";
+		}
+		Member member = ms.getMemberOne((LoginMember)(session.getAttribute("LM")));
+		model.addAttribute("member", member);
+		return "memberInfo";
 	}
 }

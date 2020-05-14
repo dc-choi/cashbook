@@ -14,6 +14,9 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mm;
 	
+	public Member getMemberOne(LoginMember lm) {
+		return mm.selectMemberOne(lm);
+	}
 	public String checkMemberId(String memberIdCheck) {
 		return mm.selectMemberId(memberIdCheck);
 	}

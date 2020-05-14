@@ -19,34 +19,37 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
-	$("#btn").click(function(){
-		$("#form").submit();
-	})
-});
-</script>
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Login</h1>
-		<form method="post" action="/login" id="form">
-			<div>
-				member_id : <input type="text" name="memberId" id="memberId">
-				<span id="idText"></span>
-			</div>
-			<div>
-				member_pw : <input type="password" name="memberPw" id="memberPw">
-				<span id="pwText"></span>
-			</div>
-			<div>
-				<span th:text="${msg}"></span>
-			</div>
-			<div>
-				<button type="button" id="btn">Login</button>
-			</div>
-		</form>
-		<a href="/index">back</a>
+		<h1>Member Info</h1>
+		<div th:include="/include/menu::sidemenu"></div>
+		<table class="table" border="1">
+			<tr>
+				<td>member_id</td>
+				<td th:text="${member.memberId}"></td>
+			</tr>
+			<tr>
+				<td>member_name</td>
+				<td th:text="${member.memberName}"></td>
+			</tr>
+			<tr>
+				<td>member_addr</td>
+				<td th:text="${member.memberAddr}"></td>
+			</tr>
+			<tr>
+				<td>member_phone</td>
+				<td th:text="${member.memberPhone}"></td>
+			</tr>
+			<tr>
+				<td>member_email</td>
+				<td th:text="${member.memberEmail}"></td>
+			</tr>
+			<tr>
+				<td><a class="btn btn-danger" href="">Sign Out</a></td>
+				<td><a class="btn btn-primary" href="">Update</a></td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

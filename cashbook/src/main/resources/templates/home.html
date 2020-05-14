@@ -19,34 +19,11 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
-	$("#btn").click(function(){
-		$("#form").submit();
-	})
-});
-</script>
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Login</h1>
-		<form method="post" action="/login" id="form">
-			<div>
-				member_id : <input type="text" name="memberId" id="memberId">
-				<span id="idText"></span>
-			</div>
-			<div>
-				member_pw : <input type="password" name="memberPw" id="memberPw">
-				<span id="pwText"></span>
-			</div>
-			<div>
-				<span th:text="${msg}"></span>
-			</div>
-			<div>
-				<button type="button" id="btn">Login</button>
-			</div>
-		</form>
-		<a href="/index">back</a>
+		<h1>Home</h1>
+		<div th:include="/include/menu::sidemenu"></div>
 	</div>
 </body>
 </html>
