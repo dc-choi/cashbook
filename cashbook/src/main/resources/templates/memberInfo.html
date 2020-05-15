@@ -26,6 +26,10 @@
 		<div th:include="/include/menu::sidemenu"></div>
 		<table class="table" border="1">
 			<tr>
+				<td>member_pic</td>
+				<td><img th:src="@{'/upload/'+ ${member.memberPic}}"></img></td>
+			</tr>
+			<tr>
 				<td>member_id</td>
 				<td th:text="${member.memberId}"></td>
 			</tr>

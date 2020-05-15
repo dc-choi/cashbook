@@ -29,28 +29,24 @@ $(document).ready(function(){
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Login</h1>
-		<form method="post" action="/login" id="form">
+		<h1>Find ID</h1>
+		<!-- th:action="@{/findMemberId}"는 thymeleaf식 표기법이라고 한다 -->
+		<form id="form" method="post" th:action="@{/findMemberId}">
 			<div>
-				member_id : <input type="text" name="memberId" id="memberId">
-				<span id="idText"></span>
+				member_name : <input type="text" name="memberName" id="memberName">
 			</div>
 			<div>
-				member_pw : <input type="password" name="memberPw" id="memberPw">
-				<span id="pwText"></span>
+				member_addr : <input type="text" name="memberAddr" id="memberAddr">
 			</div>
 			<div>
-				<span th:text="${msg}"></span>
+				member_phone : <input type="text" name="memberPhone" id="memberPhone">
 			</div>
 			<div>
-				<button type="button" id="btn">Login</button>
+				member_email : <input type="text" name="memberEmail" id="memberEmail">
 			</div>
+			<button type="button" id="btn">Find</button>
 		</form>
-		<div>
-			<a th:href="@{/findMemberId}">아이디가 기억나지 않아요</a>
-			<a th:href="@{/findMemberPw}">비밀번호가 기억나지 않아요</a>
-		</div>
-		<a href="/index">back</a>
+		<a href="/login">back</a>
 	</div>
 </body>
 </html>

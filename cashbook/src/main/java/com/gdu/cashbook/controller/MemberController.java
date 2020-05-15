@@ -86,7 +86,7 @@ public class MemberController {
 			model.addAttribute("memberIdCheck", memberIdCheck);
 		} else {
 			System.out.println("아이디를 사용할 수 없습니다");
-			model.addAttribute("msg", "사용중인 아이디입니다");
+			model.addAttribute("msg", "사용중인 아이디 또는 탈퇴한 아이디입니다.");
 		}
 		return "addMember";
 	}
@@ -166,4 +166,42 @@ public class MemberController {
 			return "redirect:/home";
 		}
 	}
+	@GetMapping("/findMemberId")
+	public String findMemberId(HttpSession session) {
+		// 로그인중일때
+		if(session.getAttribute("LM") != null) {
+			return "redirect:/login";
+		}
+		return "findMemberId";
+	}
+	@PostMapping("/findMemberId")
+	public String findMemberId(HttpSession session, Model model, Member m) {
+		// 로그인중일때
+		if(session.getAttribute("LM") != null) {
+			return "redirect:/login";
+		}
+		String memberId = ms.getMemberIdByMember(m);
+		System.out.println(memberId + " <-- MemberController.findMemberId.memberId");
+		model.addAttribute("memberId", memberId);
+		return "memberIdView";
+	}
+	@GetMapping("/findMemberPw")
+	public String findMemberPw(HttpSession session) {
+		// 로그인중일때
+		if(session.getAttribute("LM") != null) {
+			return "redirect:/login";
+		}
+		return "findMemberPw";
+	}
+	@PostMapping("findMemberPw")
+	public String findMemberPw(HttpSession session, Model model, Member m) {
+		int row = ms.getMemberPw(m);
+		String msg = "ID와 Email을 똑바로 확인하세요";
+		if(row == 1) {
+			msg = "입력된 Email로 Pw를 보냈습니다";
+		}
+		model.addAttribute("msg", msg);
+		return "memberPwView";
+	}
 }
+
