@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.MemberForm;
 
 @Controller
 public class MemberController {
@@ -27,14 +28,25 @@ public class MemberController {
 		return "addMember";
 	}
 	@PostMapping("/addMember")
-	public String addMember(Member m, HttpSession session) {
+	public String addMember(HttpSession session, MemberForm mf) {
 		// 로그인 중일때
 		if(session.getAttribute("LM") != null) {
 			return "redirect:/";
 		}
-		ms.addMember(m);
+		System.out.println(mf.toString());
+
+		if(!mf.getMemberPic().equals("")) {
+			if(!mf.getMemberPic().getContentType().equals("image/png")
+				&& !mf.getMemberPic().getContentType().equals("image/jpg")
+				&& !mf.getMemberPic().getContentType().equals("image/jpeg")
+				&& !mf.getMemberPic().getContentType().equals("image/gif")) {
+				System.out.println("이 부분에서 문제가 생겼다");
+				return "redirect:/addMember";
+			}
+		}
+		ms.addMember(mf);
 		// toString()을 이용하여 모든 VO값을 출력한다.
-		System.out.println(m.toString());
+		
 		return "redirect:/index";
 	}
 	@GetMapping("/login")
@@ -137,14 +149,14 @@ public class MemberController {
 		return "modifyMember";
 	}
 	@PostMapping("/modifyMember")
-	public String modifyMember(HttpSession session, Member m) {
+	public String modifyMember(HttpSession session, MemberForm mf) {
 		// 로그인 아닐때
 		if(session.getAttribute("LM") == null) {
 			return "redirect:/login";
 		}
 		// 받아온 PW의 값이 맞는지 확인해본다
 		String pw = ((String)(session.getAttribute("PW")));
-		String pw2 = ((String)(m.getMemberPw()));
+		String pw2 = ((String)(mf.getMemberPw()));
 		// 디버그코드
 		System.out.println(pw + " <-- MemberController.modifyMember.pw");
 		System.out.println(pw2 + " <-- MemberController.modifyMember.pw2");
@@ -152,7 +164,7 @@ public class MemberController {
 		// pw와 pw2가 같다면 실행하고 아니면 오류를 출력한다.
 		if(pw.equals(pw2)) {
 			// 정상적으로 수정되었는지 확인하기 위해서 int값을 받아온다.
-			int check = ms.modifyMember(m);
+			int check = ms.modifyMember(mf);
 			// check값이 0일경우 수정 실패
 			if(check == 0) {
 				System.out.println("두번째에서 수정 실패하였습니다.");

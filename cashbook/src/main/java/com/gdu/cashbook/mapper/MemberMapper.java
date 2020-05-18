@@ -10,6 +10,7 @@ public interface MemberMapper {
 	public Member selectMemberOne(LoginMember lm);
 	public String selectMemberId(String memberIdCheck);
 	public String selectMemberIdByMember(Member m);
+	public String selectMemberPic(String memberId);
 	public int updateMemberPw(Member m);
 	public String IdCk(String memberId, String memberPw);
 	public int deleteMember(String memberId);

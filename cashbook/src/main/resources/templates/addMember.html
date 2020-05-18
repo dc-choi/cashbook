@@ -79,7 +79,14 @@ $(document).ready(function(){
 		}
 	});
 	$("#idBtn").click(function(){
-		$("#idForm").submit();
+		if($('#memberIdCheck').val().length < 4) {
+			let msg = "ID는 4자이상";
+			$('#Ckmsg').text(msg);
+			$('#memberIdCheck').focus();
+		// 입력값의 길이가 4보다 작으면 실행한다.
+		} else {
+			$("#idForm").submit();
+		}
 	});
 });
 </script>
@@ -91,10 +98,13 @@ $(document).ready(function(){
 			<div>
 				아이디 중복 확인 : <input type="text" name="memberIdCheck" id="memberIdCheck">
 				<button id="idBtn" type="button">중복체크</button>
-				<span th:text="${msg}"></span>
+				<span th:text="${msg}" id="Ckmsg"></span>
 			</div>
 		</form>
-		<form id="myform" method="post" action="/addMember">
+		<form id="myform" method="post" action="/addMember" enctype="multipart/form-data">
+			<div>
+				PIC : <input type="file" name="memberPic">
+			</div>
 			<div>
 				ID : <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 				<span id="idHelper"></span>

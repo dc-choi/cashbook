@@ -73,6 +73,14 @@
 		AND member_pw = PASSWORD(#{memberPw})
 	</select>
 	
+	<select id="selectMemberPic"
+			parameterType="String"
+			resultType="String">
+		SELECT member_pic
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
+	
 	<insert id="insertMember"
 			parameterType="com.gdu.cashbook.vo.Member">
 		INSERT INTO member (
@@ -81,21 +89,28 @@
 		member_name, 
 		member_addr, 
 		member_phone, 
-		member_email
+		member_email,
+		member_pic
 		) VALUES (
 		#{memberId}, 
 		PASSWORD(#{memberPw}), 
 		#{memberName}, 
 		#{memberAddr}, 
 		#{memberPhone}, 
-		#{memberEmail}
+		#{memberEmail},
+		#{memberPic}
 		)
 	</insert>
 	
 	<update id="deleteMember"
 			parameterType="String">
 		UPDATE member
-		SET member_pw = 0
+		SET member_pw = 0,
+			member_name = 0,
+			member_addr = 0,
+			member_phone = 0,
+			member_email = 0,
+			member_pic = 0
 		WHERE member_id = #{memberId}
 	</update>
 	
@@ -105,7 +120,8 @@
 		SET member_name = #{memberName}, 
 			member_addr = #{memberAddr}, 
 			member_phone = #{memberPhone}, 
-			member_email = #{memberEmail}
+			member_email = #{memberEmail},
+			member_pic = #{memberPic}
 		WHERE member_id = #{memberId}
 	</update>
 	
