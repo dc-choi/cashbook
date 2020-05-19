@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<style>
+	.body {
+		text-align: center;
+	}
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+let clean = function() {
+	$('#PWCK').text('');
+};
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		if($('#cashNo').val() === "") {
+			clean();
+			$('#PWCK').text('cashNo값을 입력해주세요');
+			$('#PWCK').focus();
+		} else if($('#cashKind').val() === "") {
+			clean();
+			$('#PWCK').text('cashKind값을 입력해주세요');
+			$('#PWCK').focus();
+		} else if($('#cashPrice').val() === "") {
+			clean();
+			$('#PWCK').text('cashPrice값을 입력해주세요');
+			$('#PWCK').focus();
+		} else if($('#cashPlace').val() === "") {
+			clean();
+			$('#PWCK').text('cashPlace값을 입력해주세요');
+			$('#PWCK').focus();
+		} else {
+			$('#form').submit();
+		}
+	});
+});
+</script>
+</head>
+<body class="body">
+	<div class="container">
+		<h1>UPDATE FORM</h1>
+			<span id="PWCK"></span>
+			<form id="form" method="post" th:action="@{/modifyCash}">
+				<div>
+					cash_no : <input type="text" name="cashNo" id="cashNo" th:value="${c.cashNo}" readonly="readonly">
+				</div>
+				<div>
+					cash_kind : 
+					<select name="cashKind">
+						<option th:value="@{수입}" th:text="@{income}"></option>
+						<option th:value="@{지출}" th:text="@{expenses}"></option>
+					</select>
+				</div>
+				<div>
+					category_name : 
+					<select name="categoryName">
+						<option th:each="category : ${category}" th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
+					</select>
+				</div>
+				<div>
+					cash_price : <input type="text" name="cashPrice" id="cashPrice" th:value="${c.cashPrice}">
+				</div>
+				<div>
+					cash_place : <input type="text" name="cashPlace" id="cashPlace" th:value="${c.cashPlace}">
+				</div>
+				<div>
+					cash_memo : 
+					<textarea rows="5" cols="25" name="cashMemo" id="cashMemo" th:value="${c.cashMemo}"></textarea>
+				</div>
+				<button type="button" id="btn">UPDATE</button>
+			</form>
+		<a th:href="@{/getCashListByDate}">Back</a>
+	</div>
+</body>
+</html>

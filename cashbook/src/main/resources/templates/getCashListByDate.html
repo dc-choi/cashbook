@@ -58,10 +58,11 @@
 					<td th:text="${c.cashPlace}"></td>
 					<td th:text="${c.cashMemo}"></td>
 					<td><a th:href="@{/removeCash(cashNo=${c.cashNo})}">DELETE</a></td>
-					<td><a href="">UPDATE</a></td>
+					<td><a th:href="@{/modifyCash(cashNo=${c.cashNo})}">UPDATE</a></td>
 				</tr>
 			</tbody>
 		</table>
+		<div th:text="'오늘의 총 합계는 : ' + ${cashKindSum} + '원입니다.'"></div>
 	</div>
 </body>
 </html>

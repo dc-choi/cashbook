@@ -3,6 +3,7 @@ package com.gdu.cashbook.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,16 +12,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.LoginMember;
 
 @Controller
 public class CashController {
 	@Autowired private CashService cs;
 	
+	// CashList AND CashList의 총 합계
 	@GetMapping("/getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model, @RequestParam(value="now", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate now) {
 		
@@ -55,17 +59,26 @@ public class CashController {
 		c.setMemberId(loginMemberId);
 		c.setCashDate(strToday);
 		
-		List<Cash> list = cs.getCashLisyByDate(c);
-		System.out.println(list.size() + " <-- CashController.getCashListByDate.list.size()");
+		Map<String, Object> map = cs.getCashLisyByDate(c);
 		
-		model.addAttribute("list", list);
+		Integer cashKindSum = (Integer)map.get("cashKindSum");
+		
+		if(cashKindSum == null) {
+			cashKindSum = 0;
+		}
+		System.out.println(cashKindSum + " <-- CashController.getCashListByDate.check");
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("cashKindSum", cashKindSum);
 		model.addAttribute("now", now);
-		
+		/*
 		for(Cash c2 : list) {
 			System.out.println(c2);
 		}
+		*/
 		return "getCashListByDate";
 	}
+	// CashDelete
 	@GetMapping("/removeCash")
 	public String removeCash(HttpSession session, @RequestParam(value="cashNo") int cashNo) {
 		if(session.getAttribute("LM") == null) {
@@ -75,4 +88,43 @@ public class CashController {
 		cs.removeCash(cashNo);
 		return "redirect:/getCashListByDate";
 	}
+	// CashSelectOne
+	@GetMapping("/modifyCash")
+	public String modifyCash(HttpSession session, Model model, @RequestParam(value="cashNo") int cashNo) {
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/index";
+		}
+		System.out.println(cashNo + " <-- CashController.modifyCash.cashNo");
+		
+		Map<String, Object> map = cs.getCashOne(cashNo);
+		
+		Cash c = (Cash)map.get("cash");
+		
+		System.out.println(map.get("category") + " <-- CashController.modifyCash.map.get('category')");
+				
+		model.addAttribute("category", map.get("category"));
+		model.addAttribute("c", c);
+		return "modifyCash";
+	}
+	// CashUpdate
+	@PostMapping("/modifyCash")
+	public String modifyCash(HttpSession session, Cash c) {
+		// 디버그 코드
+		System.out.println(c.getCashNo() + " <-- CashController.modifyCash.c.getCashNo()");
+		System.out.println(c.getCashKind() + " <-- CashController.modifyCash.c.getCashKind()");
+		System.out.println(c.getCategoryName() + " <-- CashController.modifyCash.c.getCategoryName()");
+		System.out.println(c.getCashPrice() + " <-- CashController.modifyCash.c.getCashPrice()");
+		System.out.println(c.getCashPlace() + " <-- CashController.modifyCash.c.getCashPlace()");
+		System.out.println(c.getCashMemo() + " <-- CashController.modifyCash.c.getCashMemo()");
+		
+		cs.modifyCash(c);
+		
+		return "redirect:/getCashListByDate";
+	}
 }
+
+
+
+
+
+

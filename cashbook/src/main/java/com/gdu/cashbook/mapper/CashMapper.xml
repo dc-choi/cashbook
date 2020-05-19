@@ -20,9 +20,57 @@
 		ORDER BY cash_no ASC
 	</select>
 	
+	<select id="selectCashKindSum"
+			parameterType="com.gdu.cashbook.vo.Cash"
+			resultType="int">
+		SELECT
+			(SELECT SUM(cash_price) FROM cash
+			WHERE cash_kind = '수입'
+			AND member_id = #{memberId}
+			AND cash_date = #{cashDate})
+			-
+			(SELECT SUM(cash_price) FROM cash
+			WHERE cash_kind = '지출'
+			AND member_id = #{memberId}
+			AND cash_date = #{cashDate})
+		FROM dual
+	</select>
+	
+	<select id="selectCashOne"
+			parameterType="int"
+			resultType="com.gdu.cashbook.vo.Cash">
+		SELECT
+			cash_no cashNo,
+			cash_kind cashKind,
+			category_name categoryName,
+			cash_price cashPrice,
+			cash_place cashPlace,
+			cash_memo cashMemo
+		FROM cash
+		WHERE cash_no = #{cashNo}
+	</select>
+	
+	<select id="selectCategory"
+			resultType="com.gdu.cashbook.vo.Category">
+		SELECT category_name categoryName
+		FROM category
+	</select>
+	
 	<delete id="deleteCash"
 			parameterType="int">
 		DELETE FROM cash
 		WHERE cash_no = #{cashNo}
 	</delete>
+	
+	<update id="updateCash"
+			parameterType="com.gdu.cashbook.vo.Cash">
+		UPDATE cash
+		SET cash_kind = #{cashKind},
+			category_name = #{categoryName},
+			cash_price = #{cashPrice},
+			cash_place = #{cashPlace},
+			cash_memo = #{cashMemo}
+		WHERE cash_no = #{cashNo}
+	</update>
+	
 </mapper>
