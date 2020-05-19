@@ -3,10 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.CashMapper">
+	
 	<select id="selectCashListByDay"
 			parameterType="com.gdu.cashbook.vo.Cash"
 			resultType="com.gdu.cashbook.vo.Cash">
 		SELECT
+			cash_no cashNo,
 			cash_kind cashKind,
 			category_name categoryName,
 			cash_price cashPrice,
@@ -17,4 +19,10 @@
 		AND cash_date = #{cashDate}
 		ORDER BY cash_no ASC
 	</select>
+	
+	<delete id="deleteCash"
+			parameterType="int">
+		DELETE FROM cash
+		WHERE cash_no = #{cashNo}
+	</delete>
 </mapper>

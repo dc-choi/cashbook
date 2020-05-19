@@ -11,7 +11,11 @@ import com.gdu.cashbook.vo.Cash;
 @Service
 public class CashService {
 	@Autowired private CashMapper cm;
+	
 	public List<Cash> getCashLisyByDate(Cash c) {
 		return cm.selectCashListByDay(c);
+	}
+	public int removeCash(int cashNo) {
+		return cm.deleteCash(cashNo);
 	}
 }

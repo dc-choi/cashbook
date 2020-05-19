@@ -28,7 +28,11 @@
 		<h1>Cash List</h1>
 		<div th:include="/include/menu::sidemenu"></div>
 		
-		<h3 th:text="${strToday}"></h3>
+		<h3 th:text="${now}"></h3>
+		<div>
+			<a th:href="@{/getCashListByDate(now=${now.plusDays(-1)})}">Previous</a>
+			<a th:href="@{/getCashListByDate(now=${now.plusDays(1)})}">Next</a>
+		</div>
 		<table class="table" border="1">
 			<thead>
 				<tr>
@@ -53,7 +57,7 @@
 					
 					<td th:text="${c.cashPlace}"></td>
 					<td th:text="${c.cashMemo}"></td>
-					<td><a href="">DELETE</a></td>
+					<td><a th:href="@{/removeCash(cashNo=${c.cashNo})}">DELETE</a></td>
 					<td><a href="">UPDATE</a></td>
 				</tr>
 			</tbody>
