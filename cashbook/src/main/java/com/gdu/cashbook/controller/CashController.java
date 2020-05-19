@@ -26,6 +26,9 @@ public class CashController {
 		}
 		// 현재 날짜를 데이터 타입에 맞게 포멧을 변경한다
 		LocalDate now = LocalDate.now();
+		System.out.println(now + " <-- CashController.getCashListByDate.now");
+		
+		// sysout 했을시에 값은 같지만 데이터 타입이 달라 String으로 변환해줘야 한다.
 		DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("YYYY-MM-d");
 		String strToday = "";
 		strToday = dateTime.format(now);
@@ -39,12 +42,14 @@ public class CashController {
 		c.setCashDate(strToday);
 		
 		List<Cash> list = cs.getCashLisyByDate(c);
+		System.out.println(list.size() + " <-- CashController.getCashListByDate.list.size()");
+		
 		model.addAttribute("list", list);
+		model.addAttribute("strToday", strToday);
 		
 		for(Cash c2 : list) {
 			System.out.println(c2);
 		}
-		
 		return "getCashListByDate";
 	}
 }

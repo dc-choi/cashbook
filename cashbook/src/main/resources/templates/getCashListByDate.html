@@ -2,7 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Cash Book</title>
+<style>
+	.body {
+		text-align: center;
+	}
+	.table {
+		margin: auto;
+	}
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -15,7 +23,41 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-	
+<body class="body">
+	<div class="container">
+		<h1>Cash List</h1>
+		<div th:include="/include/menu::sidemenu"></div>
+		
+		<h3 th:text="${strToday}"></h3>
+		<table class="table" border="1">
+			<thead>
+				<tr>
+					<th>category_name</th>
+					<th>income</th>
+					<th>expenses</th>
+					<th>cash_place</th>
+					<th>cash_memo</th>
+					<th>DELETE</th>
+					<th>UPDATE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="c : ${list}">
+					<td th:text="${c.categoryName}"></td>
+					
+					<td th:if="${c.cashKind} == '수입'" th:text="${'+' + c.cashPrice}"></td>
+					<td th:unless="${c.cashKind}  == '수입'"></td>
+					
+					<td th:if="${c.cashKind}  == '지출'" th:text="${'-' + c.cashPrice}"></td>
+					<td th:unless="${c.cashKind} == '지출'"></td>
+					
+					<td th:text="${c.cashPlace}"></td>
+					<td th:text="${c.cashMemo}"></td>
+					<td><a href="">DELETE</a></td>
+					<td><a href="">UPDATE</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

@@ -7,7 +7,7 @@ public class Cash {
 	private String cashKind;
 	private int cashPrice;
 	private String cashPlace;
-	private String cashMemmo;
+	private String cashMemo;
 	private String cashDate;
 	
 	public int getCashNo() {
@@ -46,11 +46,11 @@ public class Cash {
 	public void setCashPlace(String cashPlace) {
 		this.cashPlace = cashPlace;
 	}
-	public String getCashMemmo() {
-		return cashMemmo;
+	public String getCashMemo() {
+		return cashMemo;
 	}
-	public void setCashMemmo(String cashMemmo) {
-		this.cashMemmo = cashMemmo;
+	public void setCashMemo(String cashMemmo) {
+		this.cashMemo = cashMemmo;
 	}
 	public String getCashDate() {
 		return cashDate;
@@ -62,7 +62,7 @@ public class Cash {
 	@Override
 	public String toString() {
 		return "Cash [cashNo=" + cashNo + ", categoryName=" + categoryName + ", memberId=" + memberId + ", cashKind="
-				+ cashKind + ", cashPrice=" + cashPrice + ", cashPlace=" + cashPlace + ", cashMemmo=" + cashMemmo
+				+ cashKind + ", cashPrice=" + cashPrice + ", cashPlace=" + cashPlace + ", cashMemo=" + cashMemo
 				+ ", cashDate=" + cashDate + "]";
 	}
 }
