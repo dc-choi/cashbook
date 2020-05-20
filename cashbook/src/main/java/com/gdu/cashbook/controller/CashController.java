@@ -3,6 +3,7 @@ package com.gdu.cashbook.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.DayAndPrice;
 import com.gdu.cashbook.vo.LoginMember;
 
 @Controller
@@ -29,25 +31,35 @@ public class CashController {
 		if(session.getAttribute("LM") == null) {
 			return "redirect:/index";
 		}
-		int lastday = 0;
+		String memberId = ((LoginMember)(session.getAttribute("LM"))).getMemberId();
 		Calendar cNow = Calendar.getInstance();
 		if(now == null) {
-			// LocalDate타입을 Calendar타입으로 형변환
 			now = LocalDate.now();
+		} else {
+			cNow.set(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
 		}
+		int year = now.getYear();
 		int month = now.getMonthValue();
-		lastday = LocalDate.MAX.getDayOfMonth();
+		
 		
 		Calendar first = cNow;
 		first.set(Calendar.DATE, 1);
 		int dow = first.get(Calendar.DAY_OF_WEEK);
-		
+		int lastday = cNow.getActualMaximum(Calendar.DATE);
 		System.out.println(dow + " <-- CashController.getCashListByMonth.dow");
+		
+		// 일별 수입, 지출 총액
+		List<DayAndPrice> dayPriceList = cs.getCashAndPriceList(memberId, year, month);
+		// 디버그 코드
+		for(DayAndPrice dp : dayPriceList) {
+			System.out.println(dp);
+		}
 		
 		model.addAttribute("now", now);
 		model.addAttribute("month", month);
 		model.addAttribute("dow", dow);
 		model.addAttribute("lastday", lastday);
+		model.addAttribute("dayPriceList", dayPriceList);
 		return "getCashListByMonth";
 	}
 	// CashListByDate AND CashListByDate의 총 합계

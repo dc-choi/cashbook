@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gdu.cashbook.mapper.CashMapper;
 import com.gdu.cashbook.vo.Cash;
 import com.gdu.cashbook.vo.Category;
+import com.gdu.cashbook.vo.DayAndPrice;
 
 @Service
 public class CashService {
@@ -27,6 +28,14 @@ public class CashService {
 	// CashDelete
 	public int removeCash(int cashNo) {
 		return cm.deleteCash(cashNo);
+	}
+	//
+	public List<DayAndPrice> getCashAndPriceList(String memberId, int year, int month) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("year", year);
+		map.put("month", month);
+		return cm.selectDayAndPrice(map);
 	}
 	// CashSelectOne
 	public Map<String, Object> getCashOne(int cashNo) {

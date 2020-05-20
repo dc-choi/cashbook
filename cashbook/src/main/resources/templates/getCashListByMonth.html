@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <title>Cash Book</title>
 <style>
-	.body {
-		text-align: center;
-	}
 	.gd-left {
 		float: left;
 		width: 100px;
@@ -25,6 +22,12 @@
 		height: 30px;
 		background-color: gray;
 	}
+	.gd-blue {
+		color: blue;
+	}
+	.gd-red {
+		color: red;
+	}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -38,16 +41,16 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<body class="body">
+<body>
 	<div class="container">
 		<h1>Cash List</h1>
 		<div th:include="/include/menu::sidemenu"></div>
 		
-		<h3 style="text-align: center;" th:text="${month + '월'}"></h3>
-		<div>
-			<a th:href="@{/getCashListByMonth(now=${now.plusMonths(-1)})}">Previous</a>
-			<a th:href="@{/getCashListByMonth(now=${now.plusMonths(1)})}">Next</a>
-		</div>
+		<h3 th:text="${month + '월'}"></h3>
+			<div>
+				<a th:href="@{/getCashListByMonth(now=${now.plusMonths(-1)})}">Previous</a>
+				<a th:href="@{/getCashListByMonth(now=${now.plusMonths(1)})}">Next</a>
+			</div>
 		
 			<div class="gd-left gd-title">일</div>
 			<div class="gd-left gd-title">월</div>
@@ -59,9 +62,13 @@
 			<!-- 3행 연산자를 사용함 -->
 			<div
 				th:class="${index.index%7} == 0 ? 'gd-clear gd-left' : 'gd-left'"
-				th:each="i, index : ${#numbers.sequence(1, lastday+(dow-1))}"
-				th:text="${i-(dow-1)}>0 ? ${i-(dow-1)} : ''"
-			>
+				th:each="i, index : ${#numbers.sequence(1, lastday+(dow-1))}">
+				<div th:text="${i-(dow-1)}>0 ? ${i-(dow-1)} : ''"></div>
+				<div th:each="dp : ${dayPriceList}">
+					<span th:if="${i-(dow-1)} == ${dp.day}">
+						<span th:class="${dp.price}>=0? 'gd-blue':'gd-red'" th:text="${dp.price} + '원'"></span>
+					</span>
+				</div>
 			</div>
 	</div>
 </body>
