@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<style>
+	.body {
+		text-align: center;
+	}
+	.gd-left {
+		float: left;
+		width: 100px;
+		height: 100px;
+		border: 1px soild #000000;
+		margin-right: 10px;
+	}
+	.gd-clear {
+		clear:both;
+		width: 100px;
+		height: 100px;
+		border: 1px soild #000000;
+		margin-left: 10px;
+	}
+	.gd-title {
+		height: 30px;
+		background-color: gray;
+	}
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="body">
+	<div class="container">
+		<h1>Cash List</h1>
+		<div th:include="/include/menu::sidemenu"></div>
+		
+		<h3 style="text-align: center;" th:text="${month + '월'}"></h3>
+		<div>
+			<a th:href="@{/getCashListByMonth(now=${now.plusMonths(-1)})}">Previous</a>
+			<a th:href="@{/getCashListByMonth(now=${now.plusMonths(1)})}">Next</a>
+		</div>
+		
+			<div class="gd-left gd-title">일</div>
+			<div class="gd-left gd-title">월</div>
+			<div class="gd-left gd-title">화</div>
+			<div class="gd-left gd-title">수</div>
+			<div class="gd-left gd-title">목</div>
+			<div class="gd-left gd-title">금</div>
+			<div class="gd-left gd-title">토</div>
+			<!-- 3행 연산자를 사용함 -->
+			<div
+				th:class="${index.index%7} == 0 ? 'gd-clear gd-left' : 'gd-left'"
+				th:each="i, index : ${#numbers.sequence(1, lastday+(dow-1))}"
+				th:text="${i-(dow-1)}>0 ? ${i-(dow-1)} : ''"
+			>
+			</div>
+	</div>
+</body>
+</html>

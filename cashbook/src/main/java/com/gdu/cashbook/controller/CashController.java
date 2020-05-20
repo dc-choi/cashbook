@@ -2,7 +2,7 @@ package com.gdu.cashbook.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,14 +17,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
-import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.LoginMember;
 
 @Controller
 public class CashController {
 	@Autowired private CashService cs;
 	
-	// CashList AND CashList의 총 합계
+	// CashListByMonth AND CashListByMonth의 총 합계
+	@GetMapping("/getCashListByMonth")
+	public String getCashListByMonth(HttpSession session, Model model, @RequestParam(value="now", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate now) {
+		if(session.getAttribute("LM") == null) {
+			return "redirect:/index";
+		}
+		int lastday = 0;
+		Calendar cNow = Calendar.getInstance();
+		if(now == null) {
+			// LocalDate타입을 Calendar타입으로 형변환
+			now = LocalDate.now();
+		}
+		int month = now.getMonthValue();
+		lastday = LocalDate.MAX.getDayOfMonth();
+		
+		Calendar first = cNow;
+		first.set(Calendar.DATE, 1);
+		int dow = first.get(Calendar.DAY_OF_WEEK);
+		
+		System.out.println(dow + " <-- CashController.getCashListByMonth.dow");
+		
+		model.addAttribute("now", now);
+		model.addAttribute("month", month);
+		model.addAttribute("dow", dow);
+		model.addAttribute("lastday", lastday);
+		return "getCashListByMonth";
+	}
+	// CashListByDate AND CashListByDate의 총 합계
 	@GetMapping("/getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model, @RequestParam(value="now", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate now) {
 		
