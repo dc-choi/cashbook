@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>Cash Book</title>
 <style>
+	.center {
+		text-align: center;
+	}
 	.gd-left {
 		float: left;
 		width: 100px;
@@ -43,15 +46,19 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Cash List</h1>
-		<div th:include="/include/menu::sidemenu"></div>
+		<h1 class="center">Cash List</h1>
+		<div class="center" th:include="/include/menu::sidemenu"></div>
 		
 		<h3 th:text="${month + '월'}"></h3>
 			<div>
 				<a th:href="@{/getCashListByMonth(now=${now.plusMonths(-1)})}">Previous</a>
 				<a th:href="@{/getCashListByMonth(now=${now.plusMonths(1)})}">Next</a>
 			</div>
-		
+			
+			<div>
+				<a th:href="@{/addCashList}">ADD CASH</a>
+			</div>
+			
 			<div class="gd-left gd-title">일</div>
 			<div class="gd-left gd-title">월</div>
 			<div class="gd-left gd-title">화</div>
@@ -70,6 +77,9 @@
 					</span>
 				</div>
 			</div>
+		<div>
+			<span th:each="mp : ${monthPriceList}" th:class="${mp.price}>=0? 'gd-blue':'gd-red'" th:text="'이번달의 총 합계는 : ' + ${mp.price} + '원 입니다.'"></span>
+		</div>
 	</div>
 </body>
 </html>

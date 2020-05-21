@@ -26,11 +26,7 @@ let clean = function() {
 
 $(document).ready(function(){
 	$('#btn').click(function(){
-		if($('#cashNo').val() === "") {
-			clean();
-			$('#PWCK').text('cashNo값을 입력해주세요');
-			$('#PWCK').focus();
-		} else if($('#cashKind').val() === "") {
+		if($('#cashKind').val() === "") {
 			clean();
 			$('#PWCK').text('cashKind값을 입력해주세요');
 			$('#PWCK').focus();
@@ -42,6 +38,10 @@ $(document).ready(function(){
 			clean();
 			$('#PWCK').text('cashPlace값을 입력해주세요');
 			$('#PWCK').focus();
+		} else if($('#cashDate').val() === "") {
+			clean();
+			$('#PWCK').text('cashDate값을 입력해주세요');
+			$('#PWCK').focus();
 		} else {
 			$('#form').submit();
 		}
@@ -51,12 +51,9 @@ $(document).ready(function(){
 </head>
 <body class="body">
 	<div class="container">
-		<h1>UPDATE FORM</h1>
+		<h1>INSERT FORM</h1>
 			<span id="PWCK"></span>
-			<form id="form" method="post" th:action="@{/modifyCash}">
-				<div>
-					cash_no : <input type="text" name="cashNo" id="cashNo" th:value="${c.cashNo}" readonly="readonly">
-				</div>
+			<form id="form" method="post" th:action="@{/addCash}">
 				<div>
 					cash_kind : 
 					<select name="cashKind">
@@ -71,17 +68,17 @@ $(document).ready(function(){
 					</select>
 				</div>
 				<div>
-					cash_price : <input type="text" name="cashPrice" id="cashPrice" th:value="${c.cashPrice}">
+					cash_price : <input type="text" name="cashPrice" id="cashPrice">
 				</div>
 				<div>
-					cash_place : <input type="text" name="cashPlace" id="cashPlace" th:value="${c.cashPlace}">
+					cash_place : <input type="text" name="cashPlace" id="cashPlace">
 				</div>
 				<div>
 					cash_memo : 
-					<textarea rows="5" cols="25" name="cashMemo" id="cashMemo" th:value="${c.cashMemo}"></textarea>
+					<textarea rows="5" cols="25" name="cashMemo" id="cashMemo"></textarea>
 				</div>
 				<div>
-					cash_date : <input type="date" name="cashDate" id="cashDate" th:value="${c.cashDate}">
+					cash_date : <input type="date" name="cashDate" id="cashDate">
 				</div>
 				<button type="button" id="btn">UPDATE</button>
 			</form>

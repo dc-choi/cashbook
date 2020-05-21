@@ -24,12 +24,12 @@
 			parameterType="com.gdu.cashbook.vo.Cash"
 			resultType="int">
 		SELECT
-			(SELECT SUM(cash_price) FROM cash
+			(SELECT IFNULL(SUM(cash_price), 0) FROM cash
 			WHERE cash_kind = '수입'
 			AND member_id = #{memberId}
 			AND cash_date = #{cashDate})
 			-
-			(SELECT SUM(cash_price) FROM cash
+			(SELECT IFNULL(SUM(cash_price), 0) FROM cash
 			WHERE cash_kind = '지출'
 			AND member_id = #{memberId}
 			AND cash_date = #{cashDate})
@@ -45,7 +45,8 @@
 			category_name categoryName,
 			cash_price cashPrice,
 			cash_place cashPlace,
-			cash_memo cashMemo
+			cash_memo cashMemo,
+			cash_date cashDate
 		FROM cash
 		WHERE cash_no = #{cashNo}
 	</select>
@@ -70,6 +71,42 @@
 		GROUP BY DAY(cash_date)
 	</select>
 	
+	<select id="selectMonthAndPrice"
+			parameterType="java.util.Map"
+			resultType="com.gdu.cashbook.vo.MonthAndPrice">
+		SELECT 
+			MONTH(cash_date) as month,
+			SUM(CASE WHEN cash_kind='수입' THEN cash_price
+			WHEN cash_kind='지출' THEN -cash_price END) as price
+		FROM cash
+		WHERE member_id = #{memberId}
+		AND YEAR(cash_date) = #{year}
+		AND MONTH(cash_date) = #{month}
+		GROUP BY MONTH(cash_date)
+	</select>
+	
+	<insert id="insertCash"
+			parameterType="com.gdu.cashbook.vo.Cash">
+		INSERT INTO
+			cash(
+			category_name,
+			member_id,
+			cash_kind,
+			cash_price,
+			cash_place,
+			cash_memo,
+			cash_date)
+		VALUES
+			(
+			#{categoryName},
+			#{memberId},
+			#{cashKind},
+			#{cashPrice},
+			#{cashPlace},
+			#{cashMemo},
+			#{cashDate})
+	</insert>
+	
 	<delete id="deleteCash"
 			parameterType="int">
 		DELETE FROM cash
@@ -83,7 +120,8 @@
 			category_name = #{categoryName},
 			cash_price = #{cashPrice},
 			cash_place = #{cashPlace},
-			cash_memo = #{cashMemo}
+			cash_memo = #{cashMemo},
+			cash_date = #{cashDate}
 		WHERE cash_no = #{cashNo}
 	</update>
 	

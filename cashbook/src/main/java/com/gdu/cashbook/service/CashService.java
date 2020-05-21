@@ -11,6 +11,7 @@ import com.gdu.cashbook.mapper.CashMapper;
 import com.gdu.cashbook.vo.Cash;
 import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.DayAndPrice;
+import com.gdu.cashbook.vo.MonthAndPrice;
 
 @Service
 public class CashService {
@@ -20,22 +21,39 @@ public class CashService {
 	public Map<String, Object> getCashLisyByDate(Cash c) {
 		List<Cash> list = cm.selectCashListByDay(c);
 		Integer cashKindSum = cm.selectCashKindSum(c);
+		System.out.println(cashKindSum + " <-- CashService.getCashLisyByDate.cashKindSum");
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("cashKindSum", cashKindSum);
 		return map;
 	}
-	// CashDelete
-	public int removeCash(int cashNo) {
-		return cm.deleteCash(cashNo);
-	}
-	//
+	// CashList By Month in DayAndPrice
 	public List<DayAndPrice> getCashAndPriceList(String memberId, int year, int month) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberId);
 		map.put("year", year);
 		map.put("month", month);
 		return cm.selectDayAndPrice(map);
+	}
+	// CashList By Month in DayAndPrice
+		public List<MonthAndPrice> getCashAndPriceList2(String memberId, int year, int month) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("memberId", memberId);
+			map.put("year", year);
+			map.put("month", month);
+			return cm.selectMonthAndPrice(map);
+		}
+	// CashInsertForm
+	public List<Category> getCashInsertForm() {
+		List<Category> category = cm.selectCategory();
+		return category;
+	}
+	public int addCash(Cash c) {
+		return cm.insertCash(c);
+	}
+	// CashDelete
+	public int removeCash(int cashNo) {
+		return cm.deleteCash(cashNo);
 	}
 	// CashSelectOne
 	public Map<String, Object> getCashOne(int cashNo) {

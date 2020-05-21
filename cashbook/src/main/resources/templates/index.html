@@ -4,8 +4,42 @@
 <meta charset="UTF-8">
 <title>Cash Book</title>
 <style>
-	.body {
-		text-align: center;
+	.container{
+		padding:100px 0px;
+	}
+	#title{
+		font-size: 38px;
+		font-weight: bold;
+	}
+	#subTitle{
+		font-size: 35px;
+		font-weight: bold;
+	}
+	.titleMargin{
+		margin-bottom: 50px;
+	}
+	#linkArea{
+		margin:50px 0px;
+	}
+	.linkMargin{
+		margin:50px 0px;
+	}
+	.btn{
+		width: 300px;
+		height: 40px;
+		background-color: rgb(52, 152, 219);
+		border:0px;
+	}
+	.btn:hover{
+		background-color: rgb(52, 160, 230);
+	}
+	#copyRight1{
+		font-size: x-small;
+		color: rgb(158, 158, 158);
+	}
+	#copyRight2{
+		font-size: small;
+		color: rgb(94, 94, 94);
 	}
 </style>
 <!-- Latest compiled and minified CSS -->
@@ -22,13 +56,28 @@
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Cash Book</h1>
-			<div>
-				<div><a href="/login" class="btn btn-primary">Log in</a></div>
-				<div><a href="/addMember" class="btn btn-primary">Sign Up</a></div>
+		<!-- 제목 영역 -->
+		<div class="text-center">
+			<div class="titleMargin">
+				<span id="title">Cash Book</span>
 			</div>
-		<div>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</div>
-		<div>Copyright © JWsoft Corp. All Rights Reserved.</div>
+			<div>
+				<span id="subTitle">Start</span>
+			</div>
+		</div>
+	</div>
+	
+	<div id="linkArea">
+		<div class="linkMargin text-center">
+			<div><a href="/login" class="btn btn-primary">Log in</a></div>
+			<br>
+			<div><a href="/addMember" class="btn btn-primary">Sign Up</a></div>
+		</div>
+	</div>
+	
+	<div class="text-center">
+		<div id="copyRight1">본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</div>
+		<div id="copyRight2">Copyright © JWsoft Corp. All Rights Reserved.</div>
 	</div>
 </body>
 </html>
