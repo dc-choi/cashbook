@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,41 +14,156 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#memberInfo{
+		color:white;
+	}
+	/* 출력화면 style */
+	.section {
+		margin:0 auto;
+		width:600px;
+		background: white;
+		padding-top:50px;
+		padding-bottom:50px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
+	#modifyMember{
+		float: left;
+		position: relative;
+	}
+	.marginBottom5{
+		margin-bottom: 5px;
+	}
+	#modifyMemberPwBtn{
+		width: 250px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: #eaeaea;
+		color: black;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	#removeMemberBtn{
+		width: 50px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: #eaeaea;
+		color: black;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	#modifyMemberPwBtn:hover, #removeMemberBtn:hover{
+		background:#ccc; 
+	}
+	/* 테이블 관련 */
+	table{
+		margin:30px auto;
+		border: 2px solid #ccc;
+		width: 600px;
+		height: 355px;
+	}
+	th{
+		width: 200px;
+		height : 60px;
+		background: #eaeaea;
+		font-size: large;
+		text-align: center;
+		border: 1px solid #ccc;
+	}
+	td{
+		padding:10px;
+		border: 1px solid #ccc;
+		text-align: center;
+	}
+	input{
+		width: 250px;
+		height: 40px;
+		padding : 6px 12px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		border-color: rgb(204, 204, 204);
+	}
+</style>
 </head>
 <body class="body">
 	<div class="container">
-		<h1>Member Info</h1>
-		<div th:include="/include/menu::sidemenu"></div>
-		<table class="table" border="1">
-			<tr>
-				<td>member_pic</td>
-				<td><img th:src="@{${'/upload/' + member.memberPic}}"></img></td>
-			</tr>
-			<tr>
-				<td>member_id</td>
-				<td th:text="${member.memberId}"></td>
-			</tr>
-			<tr>
-				<td>member_name</td>
-				<td th:text="${member.memberName}"></td>
-			</tr>
-			<tr>
-				<td>member_addr</td>
-				<td th:text="${member.memberAddr}"></td>
-			</tr>
-			<tr>
-				<td>member_phone</td>
-				<td th:text="${member.memberPhone}"></td>
-			</tr>
-			<tr>
-				<td>member_email</td>
-				<td th:text="${member.memberEmail}"></td>
-			</tr>
-			<tr>
-				<td><a class="btn btn-danger" href="/removeMember">Delete</a></td>
-				<td><a class="btn btn-primary" href="/modifyMember">Update</a></td>
-			</tr>
-		</table>
+		<div id="sidemenu">
+			<div class="text-center" th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div class="section">
+			<!-- 제목 -->
+			<div class="text-center title">
+				<span>Member Info</span>
+			</div>
+			<table>
+				<tr>
+					<td>member_pic</td>
+					<td><img th:src="@{${'/upload/' + member.memberPic}}"></img></td>
+				</tr>
+				<tr>
+					<td>member_id</td>
+					<td th:text="${member.memberId}"></td>
+				</tr>
+				<tr>
+					<td>member_name</td>
+					<td th:text="${member.memberName}"></td>
+				</tr>
+				<tr>
+					<td>member_addr</td>
+					<td th:text="${member.memberAddr}"></td>
+				</tr>
+				<tr>
+					<td>member_phone</td>
+					<td th:text="${member.memberPhone}"></td>
+				</tr>
+				<tr>
+					<td>member_email</td>
+					<td th:text="${member.memberEmail}"></td>
+				</tr>
+				<tr>
+					<td><a class="btn btn-danger" href="/removeMember">Delete</a></td>
+					<td><a class="btn btn-primary" href="/modifyMember">Update</a></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

@@ -12,15 +12,28 @@
 <body class="body">
 	<!-- fragment1 -->
 	<div th:fragment="sidemenu"> <!-- menu::sidemenu -->
-		<div><span th:text="${session.LM.memberId}"></span>님 반갑습니다</div>
-		<ul>
-			<li><a th:href="@{/home}">Home</a></li>
-			<li><a th:href="@{/memberInfo}">Member Info</a></li>
-			<li><a th:href="@{/getCashListByDate}">Cash Book Management By Day</a></li>
-			<li><a th:href="@{/getCashListByMonth}">Cash Book Management By Month</a></li>
-			<li><a th:href="@{/home}">BoardList</a></li>
-			<li><a th:href="@{/logout}">Logout</a></li>
-		</ul>
+		<div class="menuTitleArea">
+			<span class="menuTitle" th:text="${session.LM.memberId}"></span>
+			<span class="menuTitle">님 반갑습니다</span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/home}">Home</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/memberInfo}">Member Info</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/getCashListByDate}">Cash Book Management By Day</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/getCashListByMonth}">Cash Book Management By Month</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/home}">BoardList</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/logout}">Logout</a></span>
+		</div>
 	</div>
 	<!-- fragment2 -->
 	

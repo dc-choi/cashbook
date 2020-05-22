@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	.main{
 		border-width: 1px;
@@ -37,7 +48,7 @@
 		font-size: 36px;
 		font-weight:700;
 	}
-	#memberIdCheck{
+	#Ckmsg{
 		width: 215px;
 	}
 	#idBtn{
@@ -69,17 +80,6 @@
 		margin-bottom: 7px;
 	}
 </style>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
 // 텍스트부분 초기화하는 함수 선언
 let helpInIt = function() {
@@ -153,52 +153,106 @@ $(document).ready(function(){
 </script>
 </head>
 <body class="body">
-	<div class="container">
-		<h1>Sign Up</h1>
+	<div class="container main">
+		<div class="text-center">
+			<h1>Sign Up</h1>
+		</div>
+		
 		<form id="idForm" method="post" action="/checkMemberId">
-			<div>
-				아이디 중복 확인 : <input type="text" name="memberIdCheck" id="memberIdCheck">
-				<button id="idBtn" type="button">중복체크</button>
-				<span th:text="${msg}" id="Ckmsg"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>아이디 중복 확인</span>
+				</div>
+				<div>
+					<input type="text" name="memberIdCheck" id="memberIdCheck">
+					<button id="idBtn" type="button">중복체크</button>
+				</div>
+				<div>
+					<span th:text="${msg}" id="Ckmsg"></span>
+				</div>
 			</div>
 		</form>
 		<form id="myform" method="post" action="/addMember" enctype="multipart/form-data">
-			<div>
-				PIC : <input type="file" name="memberPic">
+			<div class="margin10">
+				<div class="margin3">
+					<span>PIC : </span>
+				</div>
+				<div>
+					<input type="file" name="memberPic">
+				</div>
 			</div>
-			<div>
-				ID : <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
-				<span id="idHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>ID : </span>
+				</div>
+				<div>
+					<input class="inputText" type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
+					<span id="idHelper"></span>
+				</div>
 			</div>
-			<div>
-				PW : <input type="password" name="memberPw" id="memberPw">
-				<span id="pwHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>PW : </span>
+				</div>
+				<div>
+					<input class="inputText" type="password" name="memberPw" id="memberPw">
+					<span id="pwHelper"></span>
+				</div>
 			</div>
-			<div>
-				PWC : <input type="password" id="memberPw2">
-				<span id="pw2Helper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>PWC : </span>
+				</div>
+				<div>
+					<input class="inputText" type="password" id="memberPw2">
+					<span id="pw2Helper"></span>
+				</div>
 			</div>
-			<div>
-				MEMBER_NAME : <input type="text" name="memberName" id="memberName">
-				<span id="nameHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>MEMBER_NAME : </span>
+				</div>
+				<div>
+					<input class="inputText" type="text" name="memberName" id="memberName">
+					<span id="nameHelper"></span>
+				</div>
 			</div>
-			<div>
-				ADDR : <input type="text" name="memberAddr" id="memberAddr">
-				<span id="addrHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>ADDR : </span>
+				</div>
+				<div>
+					<input class="inputText" type="text" name="memberAddr" id="memberAddr">
+					<span id="addrHelper"></span>
+				</div>
 			</div>
-			<div>
-				PHONE : <input type="text" name="memberPhone" id="memberPhone">
-				<span id="phoneHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>PHONE : </span>
+				</div>
+				<div>
+					<input class="inputText" type="text" name="memberPhone" id="memberPhone">
+					<span id="phoneHelper"></span>
+				</div>
 			</div>
-			<div>
-				EMAIL : <input type="text" name="memberEmail" id="memberEmail">
-				<span id="emailHelper"></span>
+			<div class="margin10">
+				<div class="margin3">
+					<span>EMAIL : </span>
+				</div>
+				<div>
+					<input class="inputText" type="text" name="memberEmail" id="memberEmail">
+					<span id="emailHelper"></span>
+				</div>
 			</div>
+			<br>
 			<div>
 				<button type="button" id="btn">Sign Up</button>
 			</div>
 		</form>
+		<br>
+		<div class="text-center">
 		<a href="/index">back</a>
+		</div>
 	</div>
 </body>
 </html>
