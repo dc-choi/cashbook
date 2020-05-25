@@ -123,7 +123,7 @@
 	}
 </style>
 </head>
-<body class="body">
+<body>
 	<div class="container">
 		<div id="sidemenu">
 			<div class="text-center" th:include="/include/menu::sidemenu"></div>
@@ -136,7 +136,7 @@
 			<table>
 				<tr>
 					<td>member_pic</td>
-					<td><img th:src="@{${'/upload/' + member.memberPic}}"></img></td>
+					<td><img th:src="@{${'/upload/' + member.memberPic}}" width="200" height="200"></img></td>
 				</tr>
 				<tr>
 					<td>member_id</td>

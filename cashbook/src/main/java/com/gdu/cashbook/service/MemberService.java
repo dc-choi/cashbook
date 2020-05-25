@@ -157,8 +157,8 @@ public class MemberService {
 			SimpleMailMessage sm = new SimpleMailMessage();
 			sm.setTo(m.getMemberEmail());
 			sm.setFrom("ddagae0805@gmail.com");
-			sm.setSubject("갓재우 가라사대 너가 패스워드를 찾고있느냐");
-			sm.setText("보라 여기 너가 찾던 패스워드다. " + " " + memberPw);
+			sm.setSubject("저만의 가계부계정 패스워드를 수정하였습니다.");
+			sm.setText("패스워드를 수정 하셨습니다. : " + memberPw);
 			mail.send(sm);
 		}
 		return row;

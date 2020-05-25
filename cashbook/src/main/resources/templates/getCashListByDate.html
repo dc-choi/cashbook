@@ -3,14 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-	.table {
-		margin: auto;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -22,50 +14,178 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	
+	.menuLink {
+		font-size: 20px;
+		color: black;
+		font-size: 23px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	
+	.menuLink:hover {
+		color: white;
+		text-decoration: none;
+	}
+	
+	.menuTitle {
+		font-size: 20px;
+		color: white;
+	}
+	
+	.menuTitleArea {
+		margin: 40px 0px;
+	}
+	
+	.menuArea {
+		margin: 50px 0px;
+	}
+	
+	#cashbookDay {
+		color: white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin: 0 auto;
+		width: 1000px;
+		background: white;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 200px;
+	}
+	
+	#title {
+		font-weight: bold;
+		font-size: 36px;
+		text-align: left;
+	}
+	
+	#addCashLink {
+		font-size: 16px;
+		color: white;
+		text-align: center;
+		background-color: rgb(52, 152, 219);
+		width: 100px;
+		height: 40px;
+	}
+	
+	#total {
+		text-align: right;
+	}
+	
+	#hap {
+		font-size: xx-large;
+	}
+	
+	#date {
+		font-weight: bold;
+		font-size: 24px;
+		text-align: center;
+	}
+	
+	.dateLink {
+		width: 100px;
+		height: 36px;
+		font-size: 18px;
+		color: rgb(131, 131, 131);
+		text-align: center;
+		background-color: rgb(230, 230, 230);
+		border-radius: 25px;
+		font-weight: 600;
+	}
+	
+	.dateLinkAreaMargin {
+		margin-bottom: 20px;
+		margin-top: 30px;
+	}
+	
+	table {
+		border: 1px solid #ccc;
+	}
+	
+	th {
+		background: #eaeaea;
+	}
+	
+	.cashKindSum {
+		font-size: xx-large;
+		color: rgb(52, 152, 219);
+	}
+</style>
 </head>
-<body class="body">
+<body>
 	<div class="container">
-		<h1>Cash List</h1>
-		<div th:include="/include/menu::sidemenu"></div>
-		
-		<h3 th:text="${now}"></h3>
-		<div>
-			<a th:href="@{/getCashListByDate(now=${now.plusDays(-1)})}">Previous</a>&nbsp;&nbsp;
-			<a th:href="@{/getCashListByDate(now=${now.plusDays(1)})}">Next</a>
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
 		</div>
-		<div>
-			<a th:href="@{/addCashList}">ADD CASH</a>
+		<div id="section">
+			<div class="text-center" id="title">
+				<span>Cash List</span>
+			</div>
+			<div class="row dateLinkAreaMargin">
+				<div class="col-sm-4" style="text-align:right;">
+					<span>
+						<a class="btn dateLink" th:href="@{/getCashListByDate(now=${now.plusDays(-1)})}">Previous</a>
+					</span>
+				</div>
+				<div class="col-sm-4" style="text-align:center;">
+					<span id="date" th:text="${now}"></span>
+				</div>
+				<div class="col-sm-4" style="text-align:left;">
+					<span>
+						<a class="btn dateLink" th:href="@{/getCashListByDate(now=${now.plusDays(1)})}">Next</a>
+					</span>
+				</div>
+			</div>
+			<div class="text-center">
+				<a id="addCashLink" th:href="@{/addCashList}">ADD CASH</a>
+			</div>
+			<div>
+			<table class="table text-center">
+				<thead>
+					<tr>
+						<th>category_name</th>
+						<th>income</th>
+						<th>expenses</th>
+						<th>cash_place</th>
+						<th>cash_memo</th>
+						<th>DELETE</th>
+						<th>UPDATE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${list}">
+						<td th:text="${c.categoryName}"></td>
+	
+						<td th:if="${c.cashKind} == '수입'" style="color:blue;" th:text="${'+' + c.cashPrice}"></td>
+						<td th:unless="${c.cashKind}  == '수입'"></td>
+	
+						<td th:if="${c.cashKind}  == '지출'" style="color:red;" th:text="${'-' + c.cashPrice}"></td>
+						<td th:unless="${c.cashKind} == '지출'"></td>
+	
+						<td th:text="${c.cashPlace}"></td>
+						<td th:text="${c.cashMemo}"></td>
+						<td><a th:href="@{/removeCash(cashNo=${c.cashNo})}">DELETE</a></td>
+						<td><a th:href="@{/modifyCash(cashNo=${c.cashNo})}">UPDATE</a></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<div id="total">
+				<span id="hap">TOTAL : </span>
+				<span class="cashKindSum" th:if="${cashKindSum}>0" th:text="'오늘의 총 합계는 : ' + ${cashKindSum} + '원입니다.'"></span>
+				<span class="cashKindSum" th:if="${cashKindSum}<0" style="color:red;" th:text="'오늘의 총 합계는 : ' + ${cashKindSum} + '원입니다.'"></span>
+			</div>
 		</div>
-		<table class="table" border="1">
-			<thead>
-				<tr>
-					<th>category_name</th>
-					<th>income</th>
-					<th>expenses</th>
-					<th>cash_place</th>
-					<th>cash_memo</th>
-					<th>DELETE</th>
-					<th>UPDATE</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="c : ${list}">
-					<td th:text="${c.categoryName}"></td>
-					
-					<td th:if="${c.cashKind} == '수입'" th:text="${'+' + c.cashPrice}"></td>
-					<td th:unless="${c.cashKind}  == '수입'"></td>
-					
-					<td th:if="${c.cashKind}  == '지출'" th:text="${'-' + c.cashPrice}"></td>
-					<td th:unless="${c.cashKind} == '지출'"></td>
-					
-					<td th:text="${c.cashPlace}"></td>
-					<td th:text="${c.cashMemo}"></td>
-					<td><a th:href="@{/removeCash(cashNo=${c.cashNo})}">DELETE</a></td>
-					<td><a th:href="@{/modifyCash(cashNo=${c.cashNo})}">UPDATE</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<div th:text="'오늘의 총 합계는 : ' + ${cashKindSum} + '원입니다.'"></div>
 	</div>
 </body>
 </html>

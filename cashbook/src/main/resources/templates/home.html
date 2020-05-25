@@ -47,15 +47,32 @@
 	#memberInfo{
 		color:white;
 	}
+	/* 출력화면 style */
+	#section{
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:100px;
+		padding-bottom:100px;
+		padding-left: 100px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
 </style>
 </head>
-<body class="body">
+<body>
 	<div class="container">
-		<h1>Home</h1>
 		<div id="sidemenu">
 			<div class="text-center" th:include="/include/menu::sidemenu"></div>
 		</div>
-		<h3>가계부를 어서 관리해주세요</h3>
+		<div id="section">
+			<div class="text-center title">
+				<span>HOME</span>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

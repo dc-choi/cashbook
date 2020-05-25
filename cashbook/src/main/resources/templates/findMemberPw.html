@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,6 +14,57 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	.main{
+		border-width: 1px;
+		border-style: solid;
+		border-color: rgb(224, 224, 224);
+		width: 450px;
+		height: 450px;
+		margin : 100px auto 30px auto;
+		padding : 50px 75px;
+	}
+	input{
+		width: 300px;
+		height: 40px;
+		padding : 6px 12px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		border-color: rgb(204, 204, 204);
+	}
+	#btn{
+		width: 300px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.btn:hover {
+		color:white;
+	}
+	#title{
+		font-size: 36px;
+		font-weight:700;
+	}
+	.margin15{
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.margin3{
+		margin-bottom: 3px;
+	}
+	.marginBottom20{
+		margin-bottom: 20px;
+	}
+	.point{
+		color:rgb(52, 152, 219);
+	}
+</style>
 <script>
 $(document).ready(function(){
 	$("#btn").click(function(){
@@ -28,18 +74,38 @@ $(document).ready(function(){
 </script>
 </head>
 <body class="body">
-	<div class="container">
-		<h1>Find PW</h1>
-		<form id="form" method="post" th:action="@{/findMemberPw}">
-			<div>
-				ID : <input type="text" name="memberId">
-			</div>
-			<div>
-				email : <input type="text" name="memberEmail">
-			</div>
-			<button id="btn" type="button">Find</button>
-		</form>
-		<a href="/login">back</a>
+	<div class="container main">
+		<div class="text-center">
+			<span id="title">Find PW!</span>
+		</div>
+		<div>
+			<form id="form" method="post" th:action="@{/findMemberPw}">
+				<div class="marginBottom20">
+					<div class="margin15">
+						<div class="margin3">
+							<span>ID : </span>&nbsp;<span class="point">*</span>
+						</div>
+						<div>
+							<input type="text" name="memberId">
+						</div>
+					</div>
+					<div class="margin15">
+						<div class="margin3">
+							<span>email : </span>&nbsp;<span class="point">*</span>
+						</div>
+						<div>
+							<input type="text" name="memberEmail">
+						</div>
+					</div>
+					<div class="margin15">
+						<button id="btn" type="button">Find</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="text-center">
+			<a href="/login">back</a>
+		</div>
 	</div>
 </body>
 </html>
