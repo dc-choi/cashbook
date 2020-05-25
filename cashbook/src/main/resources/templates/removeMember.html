@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,6 +14,61 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#memberInfo{
+		color:white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:50px;
+		padding-bottom:50px;
+		padding-left: 200px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
+	#modifyMember{
+		float: left;
+		position: relative;
+	}
+	#form{
+		margin-bottom: 5px;
+	}
+</style>
 <script>
 $(document).ready(function(){
 	$("#btn").click(function(){
@@ -27,20 +77,35 @@ $(document).ready(function(){
 });
 </script>
 </head>
-<body class="body">
+<body>
 	<div class="container">
-	<h1>Sign Out</h1>
-		<form id="form" method="post" action="/removeMember">
-			<div>
-				<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
-				<span th:text="${session.LM.memberId}"></span>님 정말 탈퇴하시겠습니까?<br>
-				탈퇴하기 위해서는 비밀번호를 입력해주세요
-				<br><br>
-				PW : <input type="password" name="memberPw" id="memberPw">
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center title">
+				<span>Sign Out</span>
 			</div>
-			<button type="button" id="btn">Sign Out</button>
-		</form>
-		<a href="/home">Back To Home</a>
+			<form id="form" method="post" action="/removeMember">
+				<div class="form-group">
+					<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
+					<div class="text-center">
+						<span th:text="${session.LM.memberId}"></span>님 정말 탈퇴하시겠습니까?<br>
+						탈퇴하기 위해서는 비밀번호를 입력해주세요<br><br>
+					</div>
+					<div>
+						PW : <input class="form-control" type="password" name="memberPw" id="memberPw">
+					</div>
+					<br>
+					<div class="text-center">
+						<button class="btn btn-primary" type="button" id="btn">Sign Out</button>
+					</div>
+				</div>
+			</form>
+			<div class="text-center">
+				<a href="/home">Back To Home</a>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

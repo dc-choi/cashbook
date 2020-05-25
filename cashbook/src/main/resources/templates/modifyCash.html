@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,6 +14,71 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#cashbookDay{
+		color:white;
+	}
+	/* 출력화면 style */
+	.section {
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:50px;
+		padding-bottom:50px;
+		padding-left: 200px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	}
+	.subtitle{
+		font-weight: bold;
+	    font-size: 24px;
+	    text-align: center;
+	    margin-top: 30px;
+	}
+	/**/
+	#btn{
+		width: 100px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+	}
+</style>
 <script>
 let clean = function() {
 	$('#PWCK').text('');
@@ -49,43 +109,58 @@ $(document).ready(function(){
 });
 </script>
 </head>
-<body class="body">
+<body>
 	<div class="container">
-		<h1>UPDATE FORM</h1>
-			<span id="PWCK"></span>
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div class="section">
+			<div class="text-center title">
+				<span th:text="@{UPDATE FORM}"></span><br><br>
+				<span id="PWCK"></span>
+			</div>
 			<form id="form" method="post" th:action="@{/modifyCash}">
-				<div>
-					cash_no : <input type="text" name="cashNo" id="cashNo" th:value="${c.cashNo}" readonly="readonly">
+				<div class="form-group">
+					<div class="text-center">
+					cash_no : <input class="form-control" type="text" name="cashNo" id="cashNo" th:value="${c.cashNo}" readonly="readonly">
+					</div>
+					<div class="text-center">
+						cash_kind : 
+						<select class="form-control" name="cashKind">
+							<option th:value="@{수입}" th:text="@{income}"></option>
+							<option th:value="@{지출}" th:text="@{expenses}"></option>
+						</select>
+					</div>
+					<div class="text-center">
+						category_name : 
+						<select class="form-control" name="categoryName">
+							<option th:each="category : ${category}" th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
+						</select>
+					</div>
+					<div class="text-center">
+						cash_price : <input class="form-control" type="text" name="cashPrice" id="cashPrice" th:value="${c.cashPrice}">
+					</div>
+					<div class="text-center">
+						cash_place : <input class="form-control" type="text" name="cashPlace" id="cashPlace" th:value="${c.cashPlace}">
+					</div>
+					<div class="text-center">
+						cash_memo : 
+						<textarea class="form-control" rows="5" cols="25" name="cashMemo" id="cashMemo" th:value="${c.cashMemo}"></textarea>
+					</div>
+					<div class="text-center">
+						cash_date : <input class="form-control" type="date" name="cashDate" id="cashDate" th:value="${c.cashDate}">
+					</div>
+					<br>
+					<div class="text-center">
+						<button type="button" id="btn">UPDATE</button>
+					</div>
+					<br>
+					<div class="text-center">
+						<a th:href="@{/getCashListByDate}">Back</a>
+					</div>
 				</div>
-				<div>
-					cash_kind : 
-					<select name="cashKind">
-						<option th:value="@{수입}" th:text="@{income}"></option>
-						<option th:value="@{지출}" th:text="@{expenses}"></option>
-					</select>
-				</div>
-				<div>
-					category_name : 
-					<select name="categoryName">
-						<option th:each="category : ${category}" th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
-					</select>
-				</div>
-				<div>
-					cash_price : <input type="text" name="cashPrice" id="cashPrice" th:value="${c.cashPrice}">
-				</div>
-				<div>
-					cash_place : <input type="text" name="cashPlace" id="cashPlace" th:value="${c.cashPlace}">
-				</div>
-				<div>
-					cash_memo : 
-					<textarea rows="5" cols="25" name="cashMemo" id="cashMemo" th:value="${c.cashMemo}"></textarea>
-				</div>
-				<div>
-					cash_date : <input type="date" name="cashDate" id="cashDate" th:value="${c.cashDate}">
-				</div>
-				<button type="button" id="btn">UPDATE</button>
 			</form>
-		<a th:href="@{/getCashListByDate}">Back</a>
+		</div>
 	</div>
 </body>
 </html>

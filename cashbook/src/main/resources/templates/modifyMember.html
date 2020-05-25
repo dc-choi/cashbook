@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: center;
-	}
-</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,6 +14,61 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#memberInfo{
+		color:white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:50px;
+		padding-bottom:50px;
+		padding-left: 200px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
+	#modifyMember{
+		float: left;
+		position: relative;
+	}
+	#form{
+		margin-bottom: 5px;
+	}
+</style>
 <script>
 let clean = function() {
 	$('#PWCK').text('');
@@ -29,23 +79,23 @@ $(document).ready(function(){
 		if($("#memberPw").val() === "") {
 			clean();
 			$('#PWCK').text('입력하셔야죠;;');
-			$('#PWCK').focus();
+			$('#memberPw').focus();
 		} else if($("#memberPw2").val() === "") {
 			clean();
 			$('#PWCK').text('입력하셔야죠;;');
-			$('#PWCK').focus();
+			$('#memberPw2').focus();
 		} else if($("#memberPw").val() != $("#memberPw2").val()) {
 			clean();
 			$('#PWCK').text('두개가 서로 다르잖아요;;');
-			$('#PWCK').focus();
+			$('#memberPw').focus();
 		} else if($("#memberPw2").val().length < 4) {
 			clean();
 			$('#PWCK').text('4글자이상 입력하셔야죠;;');
-			$('#PWCK').focus();
+			$('#memberPw2').focus();
 		} else if($("#memberPw2").val().length < 4) {
 			clean();
 			$('#PWCK').text('4글자이상 입력하셔야죠;;');
-			$('#PWCK').focus();
+			$('#memberPw2').focus();
 		} else {
 			$("#form").submit();
 		}
@@ -53,37 +103,47 @@ $(document).ready(function(){
 });
 </script>
 </head>
-<body class="body">
+<body>
 	<div class="container">
-		<form id="form" method="post" action="/modifyMember" enctype="multipart/form-data">
-			<div>
-				<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
-				<span th:text="${session.LM.memberId}"></span>님 수정하기 위해서는 PW가 필요합니다<br>
-				수정하기 위해서는 비밀번호를 입력해주세요
-				<br><br>
-				PW : <input type="password" name="memberPw" id="memberPw">
-				PWCK : <input type="password" id="memberPw2">
-				<br>
-				<span id="PWCK"></span>
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div id="section">
+			<form id="form" method="post" action="/modifyMember" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
+					<div class="text-center title">
+						<span th:text="${session.LM.memberId}"></span>님 수정하기 위해서는 PW가 필요합니다<br>수정하기 위해서는 비밀번호를 입력해주세요<br><br>
+						<span id="PWCK"></span>
+					</div>
+					<br>
+					PW : <input class="form-control" type="password" name="memberPw" id="memberPw">
+					PWCK : <input class="form-control" type="password" id="memberPw2">
+					<br>
+				</div>
+				<div class="form-group">
+					member_pic : <input type="file" name="memberPic">
+				</div>
+				<div class="form-group">
+					member_name : <input class="form-control" type="text" name="memberName" th:value="${member.memberName}">
+				</div>
+				<div class="form-group">
+					member_addr : <input class="form-control" type="text" name="memberAddr" th:value="${member.memberAddr}">
+				</div>
+				<div class="form-group">
+					member_phone : <input class="form-control" type="text" name="memberPhone" th:value="${member.memberPhone}">
+				</div>
+				<div class="form-group">
+					member_email : <input class="form-control" type="text" name="memberEmail" th:value="${member.memberEmail}">
+				</div>
+				<div class="text-center">
+					<button class="btn btn-primary" type="button" id="btn">Update</button>
+				</div>
+			</form>
+			<div class="text-center">
+				<a href="/home">Back To Home</a>
 			</div>
-			<div>
-				member_pic : <input type="file" name="memberPic">
-			</div>
-			<div>
-				member_name : <input type="text" name="memberName" th:value="${member.memberName}">
-			</div>
-			<div>
-				member_addr : <input type="text" name="memberAddr" th:value="${member.memberAddr}">
-			</div>
-			<div>
-				member_phone : <input type="text" name="memberPhone" th:value="${member.memberPhone}">
-			</div>
-			<div>
-				member_email : <input type="text" name="memberEmail" th:value="${member.memberEmail}">
-			</div>
-			<button type="button" id="btn">Update</button>
-		</form>
-		<a href="/home">Back To Home</a>
+		</div>
 	</div>
 </body>
 </html>
