@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdu.cashbook.mapper.AdminMapper">
+
+	<select id="getAdmin" 
+			parameterType="com.gdu.cashbook.vo.Admin" 
+			resultType="com.gdu.cashbook.vo.Admin">
+		SELECT
+			admin_id adminId, 
+			admin_pw adminPw
+		FROM admin
+		WHERE admin_id = #{adminId}
+		AND admin_pw = PASSWORD(#{adminPw})
+	</select>
+	
+</mapper>

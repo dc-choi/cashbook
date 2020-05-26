@@ -69,9 +69,6 @@
 	.margin3{
 		margin-bottom: 3px;
 	}
-	#loginMsg{
-		font-size: 15px;
-	}
 	.marginBottom20{
 		margin-bottom: 20px;
 	}
@@ -87,17 +84,17 @@ $(document).ready(function(){
 <body>
 	<div class="container main">
 		<div class="text-center">
-			<span id="title">LOGIN</span>
+			<span id="title" th:text="@{ADMIN LOGIN}"></span>
 		</div>
 		
-		<form method="post" th:action="@{/login}" id="form">
+		<form method="post" th:action="@{/adminLogin}" id="form">
 			<div class="text-center marginBottom20">
 				<div class="margin15">
-					member_id : <input type="text" name="memberId" id="memberId">
+					admin_id : <input type="text" name="adminId" id="adminId">
 					<span id="idText"></span>
 				</div>
 				<div class="margin15">
-					member_pw : <input type="password" name="memberPw" id="memberPw">
+					admin_pw :  : <input type="password" name="adminPw" id="adminPw">
 					<span id="pwText"></span>
 				</div>
 			</div>
@@ -111,9 +108,6 @@ $(document).ready(function(){
 			</div>
 		</form>
 		<div class="text-center">
-			<a th:href="@{/findMemberId}">아이디가 기억나지 않아요</a><br>
-			<a th:href="@{/findMemberPw}">비밀번호가 기억나지 않아요</a>
-			<br><br>
 			<a th:href="@{/index}">back</a>
 		</div>
 		
