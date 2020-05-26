@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	
+	.menuLink {
+		font-size: 20px;
+		color: black;
+		font-size: 23px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	
+	.menuLink:hover {
+		color: white;
+		text-decoration: none;
+	}
+	
+	.menuTitle {
+		font-size: 20px;
+		color: white;
+	}
+	
+	.menuTitleArea {
+		margin: 40px 0px;
+	}
+	
+	.menuArea {
+		margin: 50px 0px;
+	}
+	
+	#cashbookDay {
+		color: white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin: 0 auto;
+		width: 1000px;
+		background: white;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 200px;
+	}
+	
+	#title {
+		font-weight: bold;
+		font-size: 36px;
+		text-align: left;
+	}
+	
+	#loginMember {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	table {
+		border: 1px solid #ccc;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	th {
+		background: #eaeaea;
+	}
+	#btn{
+		width: 100px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center" id="title">
+				<span>Qna List One</span>
+			</div>
+			<div class="text-center" id="loginMember">
+				<span th:text="${memberId + '님. 환영합니다.'}"></span><br>
+				<span th:text="${memberId + '님께서 ' + qnaNo + '번의 상세보기를 선택하셨습니다.'}"></span>
+			</div>
+			<table class="table">
+				<tr class="text-center">
+					<th th:text="@{게시글번호}"></th>
+					<td th:text="${qua.qnaNo}"></td>
+				</tr>
+				<tr class="text-center">
+					<th th:text="게시글날짜"></th>
+					<td th:text="${qua.qnaDate}"></td>
+				</tr>
+				<tr class="text-center">
+					<th th:text="@{작성자}"></th>
+					<td th:text="${qua.memberId}"></td>
+				</tr>
+			</table>
+			<table class="table">
+				<tr class="text-center">
+					<th colspan="2">제목</th>
+				</tr>
+				<tr class="text-center">
+					<td th:text="${qua.qnaTitle}"></td>
+				</tr>
+				<tr class="text-center">
+					<th colspan="2">내용</th>
+				</tr>
+				<tr class="text-center">
+					<td th:text="${qua.qnaContent}"></td>
+				</tr>
+			</table>
+			<div class="text-center">
+				<a id="btn" th:href="@{/modifyQna(qnaNo=${qua.qnaNo})}">UPDATE</a>
+			</div>
+			<table class="text-center table">
+				<tr>
+					<th th:text="@{답글 목록}"></th>
+				</tr>
+				<tr>
+					<td th:text="${qua.qnaComment}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+

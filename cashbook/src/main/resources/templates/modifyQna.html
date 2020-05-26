@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	
+	.menuLink {
+		font-size: 20px;
+		color: black;
+		font-size: 23px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	
+	.menuLink:hover {
+		color: white;
+		text-decoration: none;
+	}
+	
+	.menuTitle {
+		font-size: 20px;
+		color: white;
+	}
+	
+	.menuTitleArea {
+		margin: 40px 0px;
+	}
+	
+	.menuArea {
+		margin: 50px 0px;
+	}
+	
+	#cashbookDay {
+		color: white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin: 0 auto;
+		width: 1000px;
+		background: white;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 200px;
+	}
+	
+	#title {
+		font-weight: bold;
+		font-size: 36px;
+		text-align: left;
+	}
+	
+	/**/
+	#btn{
+		width: 100px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+	}
+</style>
+<script>
+let clean = function() {
+	$('#PWCK').text('');
+};
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		if($('#qnaTitle').val() === "") {
+			clean();
+			$('#PWCK').text('qnaTitle값을 입력해주세요');
+			$('#PWCK').focus();
+		} else if($('#qnaContent').val() === "") {
+			clean();
+			$('#PWCK').text('qnaContent값을 입력해주세요');
+			$('#PWCK').focus();
+		} else {
+			$('#form').submit();
+		}
+	});
+});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::sidemenu"></div>
+		</div>
+		<div id="section">
+			<div id="title" class="text-center">
+				<span th:text="@{MODIFY Q&A}"></span><br><br>
+				<span id="PWCK"></span>
+			</div>
+			<form id="form" method="post" th:action="@{/modifyQna}">
+				<div class="text-center form-group">
+					<input type="hidden" name="qnaNo" th:value="${qnaNo}">
+					<div>
+						qnaTitle : <input class="form-control" type="text" name="qnaTitle" id="qnaTitle" th:value="${q.qnaTitle}">
+					</div>
+					<div>
+						qnaContent : 
+						<textarea class="form-control" rows="5" cols="40" name="qnaContent" id="qnaContent" th:text="${q.qnaContent}"></textarea>
+					</div>
+					<br>
+					<div>
+						<button type="button" id="btn">MODIFY</button>
+					</div>
+				</div>
+			</form>
+			<br>
+			<div class="text-center">
+				<a th:href="@{qnaListOne(qnaNo=${qnaNo})}">back</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

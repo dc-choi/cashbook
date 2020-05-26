@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdu.cashbook.mapper.QnaMapper">
+	
+	<select id="selectQnaListAll"
+			parameterType="String"
+			resultType="com.gdu.cashbook.vo.Qna">
+		SELECT
+			qna_no qnaNo,
+			qna_title qnaTitle,
+			qna_type qnaType,
+			qna_date qnaDate
+		FROM qna
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="selectQnaListOne"
+			parameterType="int"
+			resultType="com.gdu.cashbook.vo.Qna">
+		SELECT
+			qna_no qnaNo,
+			member_id memberId,
+			qna_title qnaTitle,
+			qna_content qnaContent,
+			qna_comment qnaComment,
+			qna_date qnaDate
+		FROM qna
+		WHERE qna_no = #{qnaNo}
+	</select>
+	
+	<insert id="insertQna"
+			parameterType="com.gdu.cashbook.vo.Qna">
+		INSERT INTO qna (member_id, qna_title, qna_content, qna_comment, qna_date)
+		VALUES (#{memberId}, #{qnaTitle}, #{qnaContent}, #{qnaComment}, now())
+	</insert>
+	
+	<update id="updateQna"
+			parameterType="com.gdu.cashbook.vo.Qna">
+		UPDATE qna
+		SET qna_title = #{qnaTitle}, qna_content = #{qnaContent}
+		WHERE qna_no = #{qnaNo}
+	</update>
+	
+</mapper>
