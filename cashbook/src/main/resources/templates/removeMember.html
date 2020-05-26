@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="text-center title">
 				<span>Sign Out</span>
 			</div>
-			<form id="form" method="post" action="/removeMember">
+			<form id="form" method="post" th:action="@{/removeMember}">
 				<div class="form-group">
 					<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
 					<div class="text-center">
@@ -103,7 +103,7 @@ $(document).ready(function(){
 				</div>
 			</form>
 			<div class="text-center">
-				<a href="/home">Back To Home</a>
+				<a th:href="@{/home}">Back To Home</a>
 			</div>
 		</div>
 	</div>

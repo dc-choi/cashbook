@@ -159,7 +159,7 @@ $(document).ready(function(){
 			<h1>Sign Up</h1>
 		</div>
 		
-		<form id="idForm" method="post" action="/checkMemberId">
+		<form id="idForm" method="post" th:action="@{/checkMemberId}">
 			<div class="margin10">
 				<div class="margin3">
 					<span>아이디 중복 확인</span>
@@ -173,7 +173,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</form>
-		<form id="myform" method="post" action="/addMember" enctype="multipart/form-data">
+		<form id="myform" method="post" th:action="@{/addMember}" enctype="multipart/form-data">
 			<div class="margin10">
 				<div class="margin3">
 					<span>PIC : </span>
@@ -252,7 +252,7 @@ $(document).ready(function(){
 		</form>
 		<br>
 		<div class="text-center">
-		<a href="/index">back</a>
+		<a th:href="@{/index}">back</a>
 		</div>
 	</div>
 </body>

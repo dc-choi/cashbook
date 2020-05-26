@@ -61,10 +61,10 @@ $(document).ready(function(){
 			<span id="title" th:text="${msg}"></span>
 		</div>
 		<div class="text-center marginBottom30">
-			<a href="/login" class="btn btn-primary">LOGIN</a>
+			<a th:href="@{/login}" class="btn btn-primary">LOGIN</a>
 		</div>
 		<div class="text-center marginBottom30">
-			<a href="/findMemberPw" class="btn btn-primary">back</a>
+			<a th:href="@{/findMemberPw}" class="btn btn-primary">back</a>
 		</div>
 	</div>
 </body>

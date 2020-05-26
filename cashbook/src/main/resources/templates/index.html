@@ -76,9 +76,9 @@
 	
 	<div id="linkArea">
 		<div class="linkMargin text-center">
-			<div><a href="/login" class="btn btn-primary">Log in</a></div>
+			<div><a th:href="@{/login}" class="btn btn-primary">Log in</a></div>
 			<br>
-			<div><a href="/addMember" class="btn btn-primary">Sign Up</a></div>
+			<div><a th:href="@{/addMember}" class="btn btn-primary">Sign Up</a></div>
 		</div>
 	</div>
 	
@@ -88,7 +88,7 @@
 	</div>
 	
 	<div id="admin" class="text-center">
-		<a id="adminBtn" href="">ADMIN Login</a>
+		<a id="adminBtn" th:href="@{/}">ADMIN Login</a>
 	</div>
 </body>
 </html>

@@ -118,8 +118,8 @@
 					<td th:text="${member.memberEmail}"></td>
 				</tr>
 				<tr>
-					<td><a class="btn btn-danger" href="/removeMember">Delete</a></td>
-					<td><a class="btn btn-primary" href="/modifyMember">Update</a></td>
+					<td><a class="btn btn-danger" th:href="@{/removeMember}">Delete</a></td>
+					<td><a class="btn btn-primary" th:href="@{/modifyMember}">Update</a></td>
 				</tr>
 			</table>
 		</div>

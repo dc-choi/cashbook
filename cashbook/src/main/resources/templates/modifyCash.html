@@ -145,7 +145,7 @@ $(document).ready(function(){
 					</div>
 					<div class="text-center">
 						cash_memo : 
-						<textarea class="form-control" rows="5" cols="25" name="cashMemo" id="cashMemo" th:value="${c.cashMemo}"></textarea>
+						<textarea class="form-control" rows="5" cols="25" name="cashMemo" id="cashMemo" th:text="${c.cashMemo}"></textarea>
 					</div>
 					<div class="text-center">
 						cash_date : <input class="form-control" type="date" name="cashDate" id="cashDate" th:value="${c.cashDate}">

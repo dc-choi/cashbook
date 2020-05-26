@@ -109,7 +109,7 @@ $(document).ready(function(){
 			<div th:include="/include/menu::sidemenu"></div>
 		</div>
 		<div id="section">
-			<form id="form" method="post" action="/modifyMember" enctype="multipart/form-data">
+			<form id="form" method="post" th:action="@{/modifyMember}" enctype="multipart/form-data">
 				<div class="form-group">
 					<input type="hidden" name="memberId" th:value="${session.LM.memberId}">
 					<div class="text-center title">
@@ -141,7 +141,7 @@ $(document).ready(function(){
 				</div>
 			</form>
 			<div class="text-center">
-				<a href="/home">Back To Home</a>
+				<a th:href="@{/home}">Back To Home</a>
 			</div>
 		</div>
 	</div>
