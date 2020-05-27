@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
@@ -16,8 +17,8 @@ import com.gdu.cashbook.vo.MemberForm;
 
 @Controller
 public class MemberController {
-	@Autowired
-	private MemberService ms;
+	@Autowired private MemberService ms;
+	private MultipartFile mfFile;
 	
 	@GetMapping("/addMember")
 	public String addMember(HttpSession session) {
@@ -34,13 +35,16 @@ public class MemberController {
 			return "redirect:/";
 		}
 		System.out.println(mf.toString());
+		mfFile = mf.getMemberPic();
+		String originName = mfFile.getOriginalFilename();
+		System.out.println(originName + " <-- MemberController.addMember.originName");
 
-		if(!mf.getMemberPic().equals("")) {
+		if(!originName.equals("")) {
 			if(!mf.getMemberPic().getContentType().equals("image/png")
 				&& !mf.getMemberPic().getContentType().equals("image/jpg")
 				&& !mf.getMemberPic().getContentType().equals("image/jpeg")
 				&& !mf.getMemberPic().getContentType().equals("image/gif")) {
-				System.out.println("이 부분에서 문제가 생겼다");
+				System.out.println("이미지 파일만 업로드해주세요");
 				return "redirect:/addMember";
 			}
 		}
