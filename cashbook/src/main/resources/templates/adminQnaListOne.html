@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink {
+		font-size: 20px;
+		color: black;
+		font-size: 23px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.menuLink:hover {
+		color: white;
+		text-decoration: none;
+	}
+	.menuTitle {
+		font-size: 20px;
+		color: white;
+	}
+	.menuTitleArea {
+		margin: 40px 0px;
+	}
+	.menuArea {
+		margin: 50px 0px;
+	}
+	#cashbookDay {
+		color: white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin: 0 auto;
+		width: 1000px;
+		background: white;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 200px;
+	}
+	#title {
+		font-weight: bold;
+		font-size: 36px;
+		text-align: left;
+	}
+	#commentTitle {
+		font-weight: bold;
+		font-size: 20px;
+	}
+	#admin {
+		padding-top: 25px;
+		padding-bottom: 25px;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	table {
+		border: 1px solid #ccc;
+	}
+	th {
+		background: #eaeaea;
+	}
+	#PWCK {
+		font-weight: bold;
+		font-size: 20px;
+	}
+	#addBtn{
+		width: 300px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	#removeBtn{
+		width: 300px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		color: white;
+		background-color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+</style>
+<script>
+let clean = function() {
+	$('#PWCK').text('');
+};
+
+$(document).ready(function(){
+	$('#addBtn').click(function(){
+		if($('#qnaComment').val() === "") {
+			clean();
+			$('#PWCK').text('qnaComment값을 입력해주세요');
+			$('#PWCK').focus();
+		} else {
+			$('#Form').submit();
+		}
+	});
+});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::adminmenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center" id="title">
+				<span>Qna List One</span>
+			</div>
+			<div class="text-center" id="admin">
+				<span th:text="${session.admin.adminId + '님. 환영합니다.'}"></span>
+			</div>
+			<table class="table">
+				<tr class="text-center">
+					<th th:text="@{게시글번호}"></th>
+					<td th:text="${q.qnaNo}"></td>
+				</tr>
+				<tr class="text-center">
+					<th th:text="게시글날짜"></th>
+					<td th:text="${q.qnaDate}"></td>
+				</tr>
+				<tr class="text-center">
+					<th th:text="@{작성자}"></th>
+					<td th:text="${q.memberId}"></td>
+				</tr>
+			</table>
+			<table class="table">
+				<tr class="text-center">
+					<th colspan="2">제목</th>
+				</tr>
+				<tr class="text-center">
+					<td th:text="${q.qnaTitle}"></td>
+				</tr>
+				<tr class="text-center">
+					<th colspan="2">내용</th>
+				</tr>
+				<tr class="text-center">
+					<td th:text="${q.qnaContent}"></td>
+				</tr>
+				<tr class="text-center">
+					<th colspan="2">답글</th>
+				</tr>
+				<tr class="text-center">
+					<td th:text="${q.qnaComment}"></td>
+				</tr>
+				<tr class="text-center">
+					<th colspan="2"><a id="removeBtn" th:href="@{/removeQna(qnaNo=${q.qnaNo})}">주의! DELETE</a></th>
+				</tr>
+			</table>
+			<div class="text-center">
+				<form id="Form" method="post" th:action="@{/adminQnaListOne}">
+					<table class="table">
+						<tr class="text-center">
+							<th id="commentTitle" colspan="2">답글 추가</th>
+						</tr>
+						<tr class="text-center">
+							<th id="commentTitle" colspan="2"><span id="PWCK"></span></th>
+						</tr>
+						<tr class="text-center">
+							<td>
+							<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
+							<textarea cols="75" rows="5" name="qnaComment" id="qnaComment" th:text="@{'안녕하세요. ' + ${session.admin.adminId} + '입니다.'}"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td><button id="addBtn" type="button">ADD</button></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

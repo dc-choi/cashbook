@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#memberInfo{
+		color:white;
+	}
+	/* 출력화면 style */
+	#section{
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:100px;
+		padding-bottom:100px;
+		padding-left: 100px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
+	.main{
+		border-width: 1px;
+		border-style: solid;
+		border-color: rgb(224, 224, 224);
+		width: 680px;
+		height: 350px;
+		margin : 10px auto 10px auto;
+		padding : 12px 190px;
+	}
+	.inputText{
+		width: 300px;
+		height: 40px;
+		padding : 6px 12px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		border-color: rgb(204, 204, 204);
+	}
+	#btn{
+		width: 300px;
+		height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 4px;
+		background-color: rgb(52, 152, 219);
+		color: white;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.margin10{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.margin3{
+		margin-bottom: 3px;
+	}
+</style>
+<script>
+$(document).ready(function(){
+	$("#btn").click(function(){
+		if($('#categoryName').val().length === 0) {
+			let msg = "categoryName을 입력하세요";
+			$('#msg').text(msg);
+			$('#categoryName').focus();
+		} else {
+			$("#Form").submit();
+		}
+	});
+});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div id="sidemenu">
+			<div class="text-center" th:include="/include/menu::adminmenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center title">
+				<span th:text="${session.admin.adminId + '님'}"></span><br>
+				<span th:text="@{Category를 추가해주세요}"></span><br><br>
+				<span id="msg"></span>
+			</div>
+			<div>
+				<form id="Form" method="post" th:action="@{/addCategory}">
+					<div class="text-center main margin10">
+						<div class="margin10">
+							<div class="margin3">
+								<span th:text="@{category_name : }"></span>
+							</div>
+							<div>
+								<input type="text" name="categoryName" id="categoryName" class="inputText">
+							</div>
+						</div>
+						<div class="margin10">
+							<div class="margin3">
+								<span th:text="@{category_desc : }"></span>
+							</div>
+							<div>
+								<input type="text" name="categoryDesc" id="categoryDesc" class="inputText">
+							</div>
+						</div>
+						<br>
+						<div>
+							<button type="button" id="btn">ADD</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

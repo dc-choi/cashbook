@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cash Book</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	
+	.menuLink {
+		font-size: 20px;
+		color: black;
+		font-size: 23px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	
+	.menuLink:hover {
+		color: white;
+		text-decoration: none;
+	}
+	
+	.menuTitle {
+		font-size: 20px;
+		color: white;
+	}
+	
+	.menuTitleArea {
+		margin: 40px 0px;
+	}
+	
+	.menuArea {
+		margin: 50px 0px;
+	}
+	
+	#cashbookDay {
+		color: white;
+	}
+	/* 출력화면 style */
+	#section {
+		margin: 0 auto;
+		width: 1000px;
+		background: white;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 200px;
+	}
+	
+	#title {
+		font-weight: bold;
+		font-size: 36px;
+		text-align: left;
+	}
+	
+	#admin {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	table {
+		border: 1px solid #ccc;
+	}
+	
+	th {
+		background: #eaeaea;
+	}
+	#addQnaLink {
+		font-size: 16px;
+		color: white;
+		text-align: center;
+		background-color: rgb(52, 152, 219);
+		width: 100px;
+		height: 40px;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="text-center" id="sidemenu">
+			<div th:include="/include/menu::adminmenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center" id="title">
+				<span>Qna List For Admin</span>
+			</div>
+			<div class="text-center" id="admin">
+				<span th:text="${session.admin.adminId + '님. 환영합니다.'}"></span><br>
+				<span th:text="${msg}"></span>
+			</div>
+			<br>
+			<table class="table text-center">
+				<thead>
+					<tr>
+						<th>qna_no</th>
+						<th>qna_title</th>
+						<th>qna_type</th>
+						<th>qna_date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="a : ${list}">
+						<td th:text="${a.qnaNo}"></td>
+						<td><a th:href="@{/adminQnaListOne(qnaNo=${a.qnaNo})}" th:text="${a.qnaTitle}"></a></td>
+						<td th:if="@{${a.qnaType} == 답변대기중}" th:text="${a.qnaType}" style="color: red;"></td>
+						<td th:if="@{${a.qnaType} == 답변완료}" th:text="${a.qnaType}" style="color: blue;"></td>
+						<td th:text="${a.qnaDate}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

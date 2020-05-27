@@ -95,6 +95,7 @@ public class QnaController {
 		qs.modifyQna(q);
 		
 		// redirect시에는 Model로 매개변수를 보낼수가 없다.
+		// 그래서 RedirectAttributes를 사용하여 GET방식으로 매개변수를 보낸다
 		redirectAttributes.addAttribute("qnaNo", q.getQnaNo());
 		return "redirect:/qnaListOne";
 	}

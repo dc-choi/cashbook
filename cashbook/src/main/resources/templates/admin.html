@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Cash Book</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -14,8 +14,67 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+	/* 메뉴바 style */
+	#sidemenu {
+		width: 200px;
+		height: 100%;
+		position: fixed;
+		background: rgb(52, 152, 219);
+		overflow: hidden;
+	}
+	.menuLink{
+		font-size: 20px;
+		color:black;
+		font-size: 23px;
+		font-weight:700;
+		text-decoration: none;
+	}
+	.menuLink:hover{
+		color:white;
+		text-decoration: none;
+	}
+	.menuTitle{
+		font-size: 20px;
+		color:white;
+	}
+	.menuTitleArea{
+		margin: 40px 0px;
+	}
+	.menuArea{
+		margin: 50px 0px;
+	}
+	#memberInfo{
+		color:white;
+	}
+	/* 출력화면 style */
+	#section{
+		margin:0 auto;
+		width:1000px;
+		background: white;
+		padding-top:100px;
+		padding-bottom:100px;
+		padding-left: 100px;
+	}
+	.title{
+		font-weight: bold;
+	    font-size: 36px;
+	    text-align: center;
+	}
+</style>
 </head>
 <body>
-	<span th:text="${admin + '으로 로그인성공'}"></span>
+	<div class="container">
+		<div id="sidemenu">
+			<div class="text-center" th:include="/include/menu::adminmenu"></div>
+		</div>
+		<div id="section">
+			<div class="text-center title">
+				<span th:text="${session.admin.adminId + '님 환영합니다.'}"></span><br>
+				<span th:text="@{시스템을 관리하세요}"></span><br><br>
+				<span th:text=${msg}></span>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

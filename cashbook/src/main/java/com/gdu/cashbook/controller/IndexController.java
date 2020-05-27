@@ -12,6 +12,8 @@ public class IndexController {
 	public String index(HttpSession session) {
 		if(session.getAttribute("LM") != null) {
 			return "redirect:/home";
+		} else if (session.getAttribute("admin") != null) {
+			return "redirect:/admin";
 		}
 		return "index";
 	}

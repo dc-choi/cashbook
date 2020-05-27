@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Cash Book</title>
-<style>
-	.body {
-		text-align: left;
-	}
-</style>
 </head>
-<body class="body">
+<body>
 	<!-- fragment1 -->
 	<div th:fragment="sidemenu"> <!-- menu::sidemenu -->
 		<div class="menuTitleArea">
@@ -29,14 +24,34 @@
 			<span><a class="menuLink" th:href="@{/getCashListByMonth}">Cash Book Management By Month</a></span>
 		</div>
 		<div class="menuArea">
-			<span><a class="menuLink" th:href="@{/qnaList}">Q&AList</a></span>
+			<span><a class="menuLink" th:href="@{/qnaList}">QnAList</a></span>
 		</div>
 		<div class="menuArea">
 			<span><a class="menuLink" th:href="@{/logout}">Logout</a></span>
 		</div>
 	</div>
 	<!-- fragment2 -->
-	
+	<div th:fragment="adminmenu"> <!-- menu::adminmenu -->
+		<div class="menuTitleArea">
+			<span class="menuTitle" th:text="${session.admin.adminId}"></span>
+			<span class="menuTitle">님 반갑습니다</span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/admin}">Admin Home</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/addCategory}">Add category</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/adminMemberManagement}">Management Member</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/adminQnaList}">QnA List for Admin</a></span>
+		</div>
+		<div class="menuArea">
+			<span><a class="menuLink" th:href="@{/adminLogout}">Logout</a></span>
+		</div>
+	</div>
 	<!-- fragment3 -->
 	
 	<!-- fragment4 -->

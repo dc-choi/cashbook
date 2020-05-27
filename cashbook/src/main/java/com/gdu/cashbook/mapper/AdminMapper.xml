@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.AdminMapper">
 
-	<select id="getAdmin" 
+	<select id="selectAdmin" 
 			parameterType="com.gdu.cashbook.vo.Admin" 
 			resultType="com.gdu.cashbook.vo.Admin">
 		SELECT
@@ -14,5 +14,58 @@
 		WHERE admin_id = #{adminId}
 		AND admin_pw = PASSWORD(#{adminPw})
 	</select>
+	
+	<select id="selectQnaListAll"
+			resultType="com.gdu.cashbook.vo.Qna">
+		SELECT
+			qna_no qnaNo,
+			qna_title qnaTitle,
+			qna_type qnaType,
+			qna_date qnaDate
+		FROM qna
+		ORDER BY qna_type
+	</select>
+	
+	<select id="selectMemberAll"
+			resultType="com.gdu.cashbook.vo.Member">
+		SELECT
+			member_id memberId,
+			member_name memberName,
+			member_addr memberAddr,
+			member_phone memberPhone,
+			member_email memberEmail
+		FROM member
+		ORDER BY member_name DESC
+	</select>
+	
+	<insert id="insertCategory"
+			parameterType="com.gdu.cashbook.vo.Category">
+		INSERT INTO category (category_name, category_desc)
+		VALUES (#{categoryName}, #{categoryDesc})
+	</insert>
+	
+	<update id="deleteMember"
+		parameterType="String">
+		UPDATE member
+		SET member_pw = 0,
+			member_name = 0,
+			member_addr = 0,
+			member_phone = 0,
+			member_email = 0,
+			member_pic = 0
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<delete id="deleteQna"
+			parameterType="int">
+		DELETE FROM qna
+		WHERE qna_no = #{qnaNo}
+	</delete>
+	
+	<update id="updateCommentAndType">
+		UPDATE qna
+		SET qna_comment = #{qnaComment}, qna_type = '답변완료'
+		WHERE qna_no = #{qnaNo}
+	</update>
 	
 </mapper>
