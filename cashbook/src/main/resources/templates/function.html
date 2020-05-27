@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid text-center">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>Admin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>User Login : ID, PW 틀릴경우 메시지 출력</td>
+					<td>Admin Login</td>
+				</tr>
+				<tr>
+					<td>Sign Up : ID 중복체크, PIC 입력(입력하지않으면 기본이미지가 나옴)</td>
+					<td>Admin Home</td>
+				</tr>
+				<tr>
+					<td>Find ID : 문자열 일부 보여주기</td>
+					<td>Add category</td>
+				</tr>
+				<tr>
+					<td>Find Pw : Google MailServer 이용해서 메일 보내기</td>
+					<td>Management Member : 조회, 삭제</td>
+				</tr>
+				<tr>
+					<td>HOME</td>
+					<td>QnA List for Admin : 상세보기, 답글, 삭제</td>
+				</tr>
+				<tr>
+					<td>MemberInfo : 수정(이미지를 넣지않으면 기본 이미지가 나옴), 탈퇴</td>
+					<td>Admin Logout</td>
+				</tr>
+				<tr>
+					<td>Cash Book Management By Day : add Cash, total Cash By Day(흑자일경우 파란색, 적자일경우 빨간색)</td>
+					<td>각 기능을 수행후 정상적으로 실행되었으면 실행했다는 메시지 출력</td>
+				</tr>
+				<tr>
+					<td>Cash Book Management By Month : Calender(흑자일경우 파란색, 적자일경우 빨간색), total Cash By Day, total Cash By Month</td>
+				</tr>
+				<tr>
+					<td>QnAList : 문의했던 사항 목록 나열, 답변이 완료되었는지 확인가능, 문의사항 등록, 문의사항 상세보기, 문의사항 수정</td>
+				</tr>
+				<tr>
+					<td>Logout</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/index}">back</a>
+	</div>
+</body>
+</html>

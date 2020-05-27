@@ -24,4 +24,8 @@ public class IndexController {
 		}
 		return "home";
 	}
+	@GetMapping("/function")
+	public String function() {
+		return "function";
+	}
 }
