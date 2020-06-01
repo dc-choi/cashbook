@@ -133,14 +133,14 @@ public class AdminComtroller {
 		return "redirect:/adminMemberManagement";
 	}
 	@GetMapping("/adminQnaList")
-	public String adminQnaList(HttpSession session, Model model) {
+	public String adminQnaList(HttpSession session, Model model, @RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 		if(session.getAttribute("LM") != null) {
 			return "redirect:/";
 		} else if (session.getAttribute("admin") == null) {
 			System.out.println(session.getAttribute("admin") + " <-- session is null");
 			return "redirect:/";
 		}
-		List<Qna> list = as.getQnaListAll();
+		List<Qna> list = as.getQnaListAll(searchWord);
 		
 		model.addAttribute("list", list);
 		return "adminQnaList";

@@ -22,8 +22,9 @@ public class AdminService {
 	public Admin getAdmin(Admin a) {
 		return am.selectAdmin(a);
 	}
-	public List<Qna> getQnaListAll() {
-		return am.selectQnaListAll();
+	public List<Qna> getQnaListAll(String searchWord) {
+		searchWord = '%' + searchWord + '%';
+		return am.selectQnaListAll(searchWord);
 	}
 	public List<Member> getMemberAll() {
 		return am.selectMemberAll();

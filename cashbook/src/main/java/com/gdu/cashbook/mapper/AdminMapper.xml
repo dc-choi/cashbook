@@ -16,14 +16,17 @@
 	</select>
 	
 	<select id="selectQnaListAll"
+			parameterType="String"
 			resultType="com.gdu.cashbook.vo.Qna">
 		SELECT
 			qna_no qnaNo,
+			member_id memberId,
 			qna_title qnaTitle,
 			qna_type qnaType,
-			qna_date qnaDate
+			qna_date qnaDate 
 		FROM qna
-		ORDER BY qna_type
+		WHERE qna_title like #{searchWord} || member_id like #{searchWord}
+		ORDER BY qna_type, qna_date
 	</select>
 	
 	<select id="selectMemberAll"

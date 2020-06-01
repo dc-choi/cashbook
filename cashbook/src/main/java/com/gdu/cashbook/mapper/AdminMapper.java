@@ -12,7 +12,7 @@ import com.gdu.cashbook.vo.Qna;
 @Mapper
 public interface AdminMapper {
 	public Admin selectAdmin(Admin a);
-	public List<Qna> selectQnaListAll();
+	public List<Qna> selectQnaListAll(String searchWord);
 	public List<Member> selectMemberAll();
 	public int deleteMember(String memberId);
 	public int insertCategory(Category c);

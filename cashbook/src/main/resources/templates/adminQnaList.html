@@ -92,6 +92,13 @@
 		height: 40px;
 	}
 </style>
+<script>
+$(document).ready(function(){
+	$('#btn').click(function(){
+		$('#form').submit();
+	});
+});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -106,12 +113,19 @@
 				<span th:text="${session.admin.adminId + '님. 환영합니다.'}"></span><br>
 				<span th:text="${msg}"></span>
 			</div>
+			<form id="form" th:action="@{/adminQnaList}">
+				<div class="form-group text-center">
+					<input type="text" class="form-control" name="searchWord">
+					<button type="button" id="btn" class="btn btn-primary">Search</button>
+				</div>
+			</form>
 			<br>
 			<table class="table text-center">
 				<thead>
 					<tr>
 						<th>qna_no</th>
 						<th>qna_title</th>
+						<th>member_id</th>
 						<th>qna_type</th>
 						<th>qna_date</th>
 					</tr>
@@ -120,6 +134,7 @@
 					<tr th:each="a : ${list}">
 						<td th:text="${a.qnaNo}"></td>
 						<td><a th:href="@{/adminQnaListOne(qnaNo=${a.qnaNo})}" th:text="${a.qnaTitle}"></a></td>
+						<td th:text="${a.memberId}"></td>
 						<td th:if="@{${a.qnaType} == 답변대기중}" th:text="${a.qnaType}" style="color: red;"></td>
 						<td th:if="@{${a.qnaType} == 답변완료}" th:text="${a.qnaType}" style="color: blue;"></td>
 						<td th:text="${a.qnaDate}"></td>
